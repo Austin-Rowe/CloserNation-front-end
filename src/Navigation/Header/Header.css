@@ -65,6 +65,8 @@
 
 .show {
     display: block;
+    position: relative;
+    top: 0;
 }
 
 #mobile-logo {
@@ -85,6 +87,7 @@
     #header-container {
         width: 100vw;
         background: rgb(196, 196, 196);
+        margin-bottom: 30px;
     }
 
     #nav-items-container {

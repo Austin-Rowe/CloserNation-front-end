@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
- 
+
+import Chat from './Chat';
+
 class Stream extends Component {
   constructor(){
     super();
@@ -20,8 +22,9 @@ class Stream extends Component {
       {this.state.playBackError? 
         <h1>You either don't have authentication to view this resource or it is currently not live.</h1>
         :
-        <ReactPlayer url='https://stream.bestclosershow.com/hls/stream.m3u8' onError={this.onPlayError} playing />
+        <ReactPlayer url='https://stream.bestclosershow.com/hls/stream.m3u8' onError={this.onPlayError} playing controls />
       }
+      <Chat />
     </React.Fragment>
   }
 }

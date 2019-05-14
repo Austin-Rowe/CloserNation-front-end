@@ -5,7 +5,10 @@ import Stream from '../src/Routes/StreamPage/Stream';
  
 class App extends Component {
   render () {
-    return <Header />
+    return <React.Fragment>
+      <Header />
+      <Stream />
+    </React.Fragment>
   }
 }
 
