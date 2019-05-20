@@ -1,0 +1,45 @@
+#stream-container {
+    width: 95vw;
+    margin: 10px auto;
+}
+
+#chat-container {
+    width: 95vw;
+    height: 40vh;
+    margin: 0 auto 10px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+#stream-label {
+    margin: 10px auto 0;
+    width: fit-content;
+    text-align: center;
+}
+
+@media(min-width: 900px){
+    #stream-chat-container {
+        width: 95vw;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+
+    #chat-container {
+        padding-bottom: 0;
+    }
+    
+    #messages-list {
+        height: 93%;
+    }
+
+    #stream-container {
+        width: 90%;
+    }
+
+    #chat-container {
+        width: 90%;
+        height: 80vh;
+    }
+}

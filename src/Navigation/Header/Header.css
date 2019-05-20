@@ -2,7 +2,7 @@
     position: fixed;
     right: 20px;
     top: 20px;
-    z-index: 2;
+    z-index: 1;
 }
 
 .hamburger-bar {
@@ -55,6 +55,7 @@
     padding: 10px;
     border: 1px solid black;
     border-radius: 10px;
+    z-index: 1;
 }
 
 .nav-drop-down-item:hover {
