@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import './Signup.css';
+import SignedIn from './SignedIn';
 
 class Signup extends Component {
     constructor(props){
@@ -11,7 +12,8 @@ class Signup extends Component {
             signupUsername: '',
             signupPassword: '',
             signinUser: '',
-            signinPassword: ''
+            signinPassword: '',
+            signedIn: false
         }
 
         this.updateField = this.updateField.bind(this);
@@ -48,7 +50,10 @@ class Signup extends Component {
                 } 
                 return res.json();
             })
-            .then(body => console.log(body))
+            .then(body => {
+                console.log(body);
+                this.setState({signedIn: true});
+            })
             .catch(err => console.error('Error: ' + err));
         }
     }
@@ -57,16 +62,40 @@ class Signup extends Component {
         e.preventDefault();
         const {signupEmail, signupUsername, signupPassword} = this.state;
         if(signupEmail === '' || signupUsername === '' || signupPassword === ''){
-            window.alert("A field is blank");
+            window.alert("All fields must be filled");
         } else {
             window.alert("this gets sent");
+            fetch('http://localhost:3000/user/signup', {
+                method: 'post',
+                
+                body: JSON.stringify({
+                    email: signupEmail,
+                    userName: signupUsername,
+                    password: signupPassword
+                }),
+              
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              
+            }).then(res => {
+                if(res.status !== 200){
+                    window.alert("Username or email already in use");
+                } 
+                return res.json();
+            })
+            .then(body => console.log(body))
+            .catch(err => console.error('Error: ' + err));
         }
     }
 
 
     render() { 
-        return ( 
-            <div id="forms-container">
+        let page;
+        if(this.state.signedIn === true){
+            page = <SignedIn />
+        } else {
+            page = <div id="forms-container">
                 <form className="form" onSubmit={this.login}>
                     <h1 className="form-label" >LOG IN</h1>
                     <input onChange={this.updateField} id="signinUser" className="signup-input" type="text" placeholder="username or password" value={this.state.signinUser} />
@@ -81,6 +110,11 @@ class Signup extends Component {
                     <input className="submit-button" type="submit" value="SIGN UP" />
                 </form>
             </div>
+        }
+        return ( 
+            <React.Fragment>
+                {page}
+            </React.Fragment>
         );
     }
 }

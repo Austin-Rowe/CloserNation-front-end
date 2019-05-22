@@ -1,0 +1,38 @@
+#signed-in-container {
+    width: 90vw;
+    margin: 10px auto;
+    align-content: center;
+    text-align: center;
+}
+
+.signed-in-button {
+    width: 90%;
+    max-width: 500px;
+    height: 40px;
+    display: block;
+    margin: 10px auto;
+    border: 1px solid rgb(165, 165, 165);
+    border-radius: 100px;
+    font-size: 150%;
+    background: silver;
+}
+
+.signed-in-button:hover {
+    cursor: pointer;
+    color: white;
+    background: rgb(0, 0, 0);
+}
+
+/* .logout {
+    background: rgb(255, 174, 0);
+}
+
+.check-subscription {
+    color: white;
+    background: blue;
+} */
+
+.delete-account {
+    color: white;
+    background: rgb(224, 0, 0);
+}

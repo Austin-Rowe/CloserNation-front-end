@@ -1,12 +1,124 @@
+#header-container {
+    margin-bottom: 15px;
+}
+
 #drop-down-toggle {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 100;
+}
+
+#drop-down-toggle:hover {
+    cursor: pointer;
+}
+
+.hamburger-bar {
+    width: 30px; 
+    height: 5px;
+    margin-top: 5px;
+    border-radius: 25%;
+    background: white;
+    border: solid black 1px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+#header-image {
+    width: 100%;
+    display: block;
+}
+
+.header-option {
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid black;
+    background-image: url('/Nav-Images/MetalSheet.jpg');
+    background-size: cover;
+    color: white;
+    text-shadow:
+		-3px -3px 0 #000,
+		3px -3px 0 #000,
+		-3px 3px 0 #000,
+		3px 3px 0 #000;
+}
+
+.header-option:hover {
+    background-size: auto;
+}
+
+@media(min-width: 600px){
+    #header-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto;
+    }
+
+    #header-image {
+        grid-column: 1 / 4;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #drop-down-toggle {
     position: fixed;
     right: 20px;
     top: 20px;
     z-index: 1;
 }
 
+#drop-down-toggle:hover {
+    cursor: pointer;
+}
+
 .hamburger-bar {
-    width: 30px;
+    width: 30px; 
     height: 5px;
     margin-top: 5px;
     border-radius: 25%;
@@ -21,47 +133,53 @@
 
 #nav-items-container {
     margin: 0;
+    margin-top: -3px;
     padding: 0;
     list-style: none;
 }
 
 .nav-option {
     text-align: center;
-    height: 40px;
-    font-size: 25px;
+    text-shadow:
+		-2px -2px 0 #000,
+		2px -2px 0 #000,
+		-2px 2px 0 #000,
+		2px 2px 0 #000;
+    height: 45px;
+    font-size: 35px;
     font-weight: 700;
+    color: white;
     padding: 10px 0 0px;
-    border: 1px solid rgb(173, 173, 173);
-    border-radius: 10px;
+    border: 1px solid rgb(0, 0, 0);
+    background-image: url('/Nav-Images/MetalSheet.jpg');
+    background-size: cover;
 }
 
 .nav-option:hover {
     cursor: pointer;
-    background: black;
-    color: white;
+    background-size: auto;
 }
 
 .nav-drop-down {
     list-style: none;
-    margin: 10px 0 0 0;
+    margin: 4px 0 0 0;
     padding: 0;
 }
 
 .nav-drop-down-item {
     text-align: center;
     display: none;
-    background: rgb(209, 209, 209);
-    color: black;
+    background-image: url('/Nav-Images/MetalSheet.jpg');
+    background-size: cover;
+    color: white;
     padding: 10px;
     border: 1px solid black;
-    border-radius: 10px;
     z-index: 1;
 }
 
 .nav-drop-down-item:hover {
     cursor: pointer;
-    background: black;
-    color: white;
+    background-size: auto;
 }
 
 .show {
@@ -70,12 +188,12 @@
     top: 0;
 }
 
-#mobile-logo {
-    width: 80vw;
-    margin: 20px 20px 10px 20px;
+#header {
+    width: 100vw;
 }
 
-@media(min-width: 900px){
+
+@media(min-width: 500px){
 
     #drop-down-toggle {
         display: none;
@@ -87,14 +205,12 @@
 
     #header-container {
         width: 100vw;
-        background: rgb(196, 196, 196);
         margin-bottom: 30px;
     }
 
     #nav-items-container {
-        height: 100%;
         display: grid;
-        grid-template-columns: 5fr 3fr 2fr 2fr;
+        grid-template-columns: 1fr 1fr 1fr;
         border-bottom: 1px solid rgb(0, 0, 0);
     }
 
@@ -108,11 +224,6 @@
         cursor: pointer;
     }
 
-    .nav-option {
-        border: none;
-    }
-
-    #mobile-logo {
-        display: none;
-    }
-}
+    
+    
+} */

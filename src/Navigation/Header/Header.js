@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 
@@ -7,15 +8,40 @@ class Header extends Component {
         super(props);
         this.state = {
             menuVisible: false,
-            watchDropDownVisible: false
+            watchDropDownVisible: false,
+            mobile: true
         }
 
         this.menuToggle = this.menuToggle.bind(this);
+        this.hideMenu = this.hideMenu.bind(this);
         this.toggleWatchDropDown = this.toggleWatchDropDown.bind(this);
+        this.checkWidth = this.checkWidth.bind(this);
     }
 
-    menuToggle(){
+    checkWidth(){
+        this.setState({
+            mobile: window.innerWidth < 600,
+            menuVisible: window.innerWidth > 600
+        })
+    }
+
+    componentDidMount(){
+        this.checkWidth();
+        window.addEventListener('resize', () => {
+            this.setState({
+                mobile: window.innerWidth < 600,
+                menuVisible: window.innerWidth > 600
+            })
+        });
+    }
+
+    menuToggle(e){
+        e.stopPropagation();
         this.setState(state => ({menuVisible: !state.menuVisible}))
+    }
+
+    hideMenu(){
+        this.setState({menuVisible: false});
     }
 
     toggleWatchDropDown(){
@@ -24,30 +50,66 @@ class Header extends Component {
 
     render() {
         return ( 
-            <div id="header-container">
-                <div id="drop-down-toggle" onClick={this.menuToggle}>
+            <div id="header-container" onClick={this.state.mobile? this.hideMenu : null} onMouseLeave={this.state.mobile? this.hideMenu : null} >
+                <div id="drop-down-toggle" className={this.state.mobile? null : 'hidden'} onClick={this.menuToggle}>
                     <div className="hamburger-bar" ></div>
                     <div className="hamburger-bar" ></div>
                     <div className="hamburger-bar" ></div>
                 </div>
-                <a href="/" ><img id="mobile-logo" src="/Nav-Images/neon-logo-transparent.png" alt="logo" /></a>
-                <ul id="nav-items-container" className={this.state.menuVisible? 'show-nav' : 'hidden'}>
-                    <li className="logo-container hidden" >
-                        <a href="/" ><img id="logo" src="/Nav-Images/neon-logo-transparent.png" alt="logo" /></a>
-                    </li>
-                    <a href="/SIGNUP"><li className="nav-option" >SIGNUP/SIGNIN</li></a>
-                    <a href="https://indictmentclothing.com" target="_blank" rel="noopener noreferrer"><li className="nav-option" >SHOP</li></a>
-                    <li className="nav-option" onMouseEnter={this.toggleWatchDropDown} onMouseLeave={this.toggleWatchDropDown} >
-                        WATCH
-                        <ul className="nav-drop-down" >
-                            <a href="/STREAM"><li className={this.state.watchDropDownVisible? "nav-drop-down-item show" : "nav-drop-down-item"} >LIVE</li></a>
-                            <a href="/ARCHIVES"><li className={this.state.watchDropDownVisible? "nav-drop-down-item show" : "nav-drop-down-item"} >ARCHIVES</li></a>
-                        </ul>
-                    </li>
-                </ul>
+                <img id="header-image" src={this.state.mobile? "/Nav-Images/HeaderMobile.jpg" : "Nav-Images/Header.png"} alt="CLOSER NATION SHOW"/>
+                <Link to="/SIGNUP">
+                    <div className={this.state.menuVisible? "header-option" : "header-option hidden"} >
+                        <h1>SIGNUP/SIGNIN</h1>
+                    </div>
+                </Link>
+                <a href="https://indictmentclothing.com" target="_blank" rel="noopener noreferrer">
+                    <div className={this.state.menuVisible? "header-option" : "header-option hidden"} >
+                        <h1>SHOP</h1>    
+                    </div>  
+                </a>
+                
+                <div onMouseLeave={this.toggleWatchDropDown} onMouseEnter={this.toggleWatchDropDown}>
+                    <div className={this.state.menuVisible? "header-option" : "header-option hidden"}>
+                        <h1>WATCH</h1>
+                    </div>
+                    <div className={this.state.watchDropDownVisible? null : 'hidden'} >
+                        <Link to="/STREAM">
+                            <div className="header-option"  >
+                                <h1>LIVE</h1>
+                            </div>
+                        </Link>
+                        <Link to="/ARCHIVES">
+                            <div className="header-option" >
+                                <h1>ARCHIVES</h1>
+                            </div>
+                        </Link>
+                    </div>
+                </div>         
+                
+                
             </div>
         );
     }
 }
  
 export default Header;
+
+{/* <div id="header-container">
+    <div id="drop-down-toggle" onClick={this.menuToggle}>
+        <div className="hamburger-bar" ></div>
+        <div className="hamburger-bar" ></div>
+        <div className="hamburger-bar" ></div>
+    </div>
+    <img id="header" src={this.state.mobile? "/Nav-Images/HeaderMobile.jpg" : "Nav-Images/Header.png"} alt="CLOSER NATION SHOW"/>
+    <div id="nav-items-container" className={this.state.menuVisible? 'show-nav' : 'hidden'}>
+        <a href="/SIGNUP"><div className="nav-option" >SIGNUP/SIGNIN</div></a>
+        <a href="https://indictmentclothing.com" target="_blank" rel="noopener noreferrer"><div className="nav-option" >SHOP</div></a>
+        <div className="nav-option" onMouseEnter={this.toggleWatchDropDown} onMouseLeave={this.toggleWatchDropDown} >
+            WATCH
+            <div className="nav-drop-down" >
+                <a href="/STREAM"><div className={this.state.watchDropDownVisible? "nav-drop-down-item show" : "nav-drop-down-item"} >LIVE</div></a>
+                <a href="/ARCHIVES"><div className={this.state.watchDropDownVisible? "nav-drop-down-item show" : "nav-drop-down-item"} >ARCHIVES</div></a>
+            </div>
+        </div>
+    </div>
+</div> */}

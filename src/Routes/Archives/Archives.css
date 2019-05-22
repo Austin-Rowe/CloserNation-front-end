@@ -1,0 +1,10 @@
+#archives-container {
+    width: 95vw;
+    margin: 10px auto;
+    align-content: center;
+    text-align: center;
+}
+
+#archives-list {
+    list-style: none;
+}

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import chatFuncs from '../../API/chat';
 import './Chat.css';
 
-const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvd2ViYWxsZXJAZ21haWwuY29tIiwidXNlck5hbWUiOiJyb3dlYmFsbGVyIiwiX2lkIjoiNWNkMzcxYzgwYmYwMTkyNWI0MjNlMDhlIiwicGFpZFN1YnNjcmlwdGlvbiI6ZmFsc2UsImFkbWluIjpmYWxzZSwiaWF0IjoxNTU4MzY4NTYxLCJleHAiOjE1NTgzOTczNjF9.9NC_zXD4HXv9Qt-96woGqe5zfEZK-fx3k81vQXBDy7o';
+const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvd2ViYWxsZXJAZ21haWwuY29tIiwidXNlck5hbWUiOiJyb3dlYmFsbGVyIiwiX2lkIjoiNWNkMzcxYzgwYmYwMTkyNWI0MjNlMDhlIiwicGFpZFN1YnNjcmlwdGlvbiI6ZmFsc2UsImFkbWluIjpmYWxzZSwiaWF0IjoxNTU4NDU2NDE1LCJleHAiOjE1NTg0ODUyMTV9.E3vJeTsg3g_lJ_6YJTenKBUNVneRgXWUVzPDB2YhvuA";
 
 const Message = (props) => {
     const {messageObj} = props;
