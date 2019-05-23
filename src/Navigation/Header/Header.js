@@ -15,6 +15,7 @@ class Header extends Component {
         this.menuToggle = this.menuToggle.bind(this);
         this.hideMenu = this.hideMenu.bind(this);
         this.toggleWatchDropDown = this.toggleWatchDropDown.bind(this);
+        this.hideWatchDropDown = this.hideWatchDropDown.bind(this);
         this.checkWidth = this.checkWidth.bind(this);
     }
 
@@ -47,32 +48,36 @@ class Header extends Component {
     toggleWatchDropDown(){
         this.setState(state => ({watchDropDownVisible: !state.watchDropDownVisible}));
     }
+    
+    hideWatchDropDown(){
+        this.setState({watchDropDownVisible: false});
+    }
 
     render() {
         return ( 
-            <div id="header-container" onClick={this.state.mobile? this.hideMenu : null} onMouseLeave={this.state.mobile? this.hideMenu : null} >
+            <div id="header-container" onMouseLeave={this.state.mobile? this.hideMenu : null} >
                 <div id="drop-down-toggle" className={this.state.mobile? null : 'hidden'} onClick={this.menuToggle}>
                     <div className="hamburger-bar" ></div>
                     <div className="hamburger-bar" ></div>
                     <div className="hamburger-bar" ></div>
                 </div>
-                <img id="header-image" src={this.state.mobile? "/Nav-Images/HeaderMobile.jpg" : "Nav-Images/Header.png"} alt="CLOSER NATION SHOW"/>
-                <Link to="/SIGNUP">
+                <img id="header-image" src={this.state.mobile? "/Nav-Images/HeaderMobile.jpg" : "Nav-Images/LightHeader.jpg"} alt="CLOSER NATION SHOW"/>
+                <Link to="/SIGNUP" onClick={this.state.mobile? this.hideMenu : null}>
                     <div className={this.state.menuVisible? "header-option" : "header-option hidden"} >
                         <h1>SIGNUP/SIGNIN</h1>
                     </div>
                 </Link>
-                <a href="https://indictmentclothing.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://indictmentclothing.com" target="_blank" rel="noopener noreferrer" onClick={this.state.mobile? this.hideMenu : null}>
                     <div className={this.state.menuVisible? "header-option" : "header-option hidden"} >
                         <h1>SHOP</h1>    
                     </div>  
                 </a>
                 
-                <div onMouseLeave={this.toggleWatchDropDown} onMouseEnter={this.toggleWatchDropDown}>
+                <div onMouseLeave={this.state.mobile? null : this.hideWatchDropDown} onMouseEnter={this.state.mobile? null : this.toggleWatchDropDown} onClick={this.toggleWatchDropDown}>
                     <div className={this.state.menuVisible? "header-option" : "header-option hidden"}>
                         <h1>WATCH</h1>
                     </div>
-                    <div className={this.state.watchDropDownVisible? null : 'hidden'} >
+                    <div className={this.state.watchDropDownVisible? null : 'hidden'} onClick={this.state.mobile? this.hideMenu : null}>
                         <Link to="/STREAM">
                             <div className="header-option"  >
                                 <h1>LIVE</h1>

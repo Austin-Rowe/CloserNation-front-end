@@ -35,19 +35,16 @@
 .header-option {
     font-size: 12px;
     text-align: center;
-    border: 1px solid black;
-    background-image: url('/Nav-Images/MetalSheet.jpg');
+    border: 2px solid rgb(100, 0, 0);
+    background-image: url('/Nav-Images/LightMetalSheet.jpg');
     background-size: cover;
-    color: white;
-    text-shadow:
-		-3px -3px 0 #000,
-		3px -3px 0 #000,
-		-3px 3px 0 #000,
-		3px 3px 0 #000;
+    color: black;
 }
 
 .header-option:hover {
-    background-size: auto;
+    background-image: url('/Nav-Images/MetalSheet.jpg');
+    color: white;
+    text-shadow: 0 0 5px #640000, 0 0 10px #640000, 0 0 15px #640000, 0 0 20px #640000, 0 0 30px #640000, 0 0 40px #640000, 0 0 55px #640000, 0 0 75px #640000;
 }
 
 @media(min-width: 600px){
@@ -55,6 +52,10 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: auto auto;
+    }
+
+    .header-option {
+        max-height: 50px;
     }
 
     #header-image {
