@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 
 import './Signup.css';
 import SignedIn from './SignedIn';
@@ -13,8 +15,12 @@ class Signup extends Component {
             signupPassword: '',
             signinUser: '',
             signinPassword: '',
-            signedIn: false
         }
+
+        console.log({
+            loggedIn: props.loggedIn,
+            authToken: props.authToken
+        });
 
         this.updateField = this.updateField.bind(this);
         this.login = this.login.bind(this);
@@ -31,7 +37,6 @@ class Signup extends Component {
         if(signinPassword === '' || signinUser === ''){
             window.alert("Password or Email is blank!");
         } else {
-            window.alert("this gets sent");
             fetch('http://localhost:3000/user/login', {
                 method: 'post',
                 
@@ -52,7 +57,11 @@ class Signup extends Component {
             })
             .then(body => {
                 console.log(body);
-                this.setState({signedIn: true});
+                this.props.dispatch({
+                    type: 'LOGIN',
+                    authToken: body.token,
+                    userName: signinUser
+                })
             })
             .catch(err => console.error('Error: ' + err));
         }
@@ -92,13 +101,13 @@ class Signup extends Component {
 
     render() { 
         let page;
-        if(this.state.signedIn === true){
-            page = <SignedIn />
+        if(this.props.loggedIn === true){
+            page = <SignedIn userName={this.props.userName} />
         } else {
             page = <div id="forms-container">
                 <form className="form" onSubmit={this.login}>
                     <h1 className="form-label" >LOG IN</h1>
-                    <input onChange={this.updateField} id="signinUser" className="signup-input" type="text" placeholder="username or password" value={this.state.signinUser} />
+                    <input onChange={this.updateField} id="signinUser" className="signup-input" type="text" placeholder="username or email" value={this.state.signinUser} />
                     <input onChange={this.updateField} id="signinPassword" className="signup-input" type="password" placeholder="password" value={this.state.signinPassword} />
                     <input className="submit-button" type="submit" value="LOG IN" />
                 </form>
@@ -119,4 +128,10 @@ class Signup extends Component {
     }
 }
  
-export default Signup;
+const mapStateToProps = state => ({
+    loggedIn: state.loggedIn,
+    authToken: state.authToken,
+    userName: state.userName
+});
+ 
+export default connect(mapStateToProps)(Signup);
