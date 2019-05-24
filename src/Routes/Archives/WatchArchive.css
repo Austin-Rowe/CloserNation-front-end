@@ -1,0 +1,16 @@
+#watch-archive-video-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#archive-video {
+    width: 90%;
+    max-height: 95vh;
+}
+
+@media(min-width: 1200px){
+    #watch-archive-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+}

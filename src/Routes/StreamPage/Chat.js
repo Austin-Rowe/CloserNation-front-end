@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import chatFuncs from '../../API/chat';
 import './Chat.css';
 
-const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvd2ViYWxsZXJAZ21haWwuY29tIiwidXNlck5hbWUiOiJyb3dlYmFsbGVyIiwiX2lkIjoiNWNkMzcxYzgwYmYwMTkyNWI0MjNlMDhlIiwicGFpZFN1YnNjcmlwdGlvbiI6ZmFsc2UsImFkbWluIjpmYWxzZSwiaWF0IjoxNTU4NDU2NDE1LCJleHAiOjE1NTg0ODUyMTV9.E3vJeTsg3g_lJ_6YJTenKBUNVneRgXWUVzPDB2YhvuA";
+const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvd2ViYWxsZXJAZ21haWwuY29tIiwidXNlck5hbWUiOiJyb3dlYmFsbGVyIiwiX2lkIjoiNWNkMzcxYzgwYmYwMTkyNWI0MjNlMDhlIiwicGFpZFN1YnNjcmlwdGlvbiI6ZmFsc2UsImFkbWluIjpmYWxzZSwiaWF0IjoxNTU4NzE4MjI3LCJleHAiOjE1NTg3NDcwMjd9.3bjUU7zsRbqhRvYrVhJRxCy5AJuQ1_ot8n6QgkCn97g";
 
 const Message = (props) => {
     const {messageObj} = props;
@@ -65,8 +65,10 @@ class Chat extends Component {
                 <ul id="messages-list">{messages}</ul>
                 <form id="message-form" onSubmit={this.sendMessage}>
                     <input id="message-input" type='text' value={this.state.message} onChange={event => this.setState({message: event.target.value})} />
-                    <input id="message-submit" type='image' src='Nav-Images/ic-send_97591.png' onClick={this.sendMessage} alt="submit"/>
                 </form>
+                <button id="message-submit" onClick={this.sendMessage} alt="submit">
+                    <img id="message-submit-image" src="/Nav-Images/ic-send_97591.png" alt="SEND"/>
+                </button>
             </div>            
         );
     }
