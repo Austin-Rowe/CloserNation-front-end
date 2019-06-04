@@ -35,6 +35,13 @@
     cursor: pointer;
 }
 
+#password-recovery {
+    color: blue;
+    text-decoration: underline;
+    text-align: center;
+    display: block;
+}
+
 @media(min-width: 500px){
     #forms-container {
         width: 70vw;

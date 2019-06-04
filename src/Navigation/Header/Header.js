@@ -62,9 +62,9 @@ class Header extends Component {
                     <div className="hamburger-bar" ></div>
                 </div>
                 <img id="header-image" src={this.state.mobile? "/Nav-Images/HeaderMobile.jpg" : "Nav-Images/LightHeader.jpg"} alt="CLOSER NATION SHOW"/>
-                <Link to="/SIGNUP" onClick={this.state.mobile? this.hideMenu : null}>
+                <Link to="/ACCOUNT" onClick={this.state.mobile? this.hideMenu : null}>
                     <div className={this.state.menuVisible? "header-option" : "header-option hidden"} >
-                        <h1>SIGNUP/SIGNIN</h1>
+                        <h1>ACCOUNT</h1>
                     </div>
                 </Link>
                 <a href="https://indictmentclothing.com" target="_blank" rel="noopener noreferrer" onClick={this.state.mobile? this.hideMenu : null}>

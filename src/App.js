@@ -10,6 +10,8 @@ import Stream from './Routes/StreamPage/Stream';
 import Signup from './Routes/Signup/Signup';
 import Archives from './Routes/Archives/Archives';
 import WatchArchive from './Routes/Archives/WatchArchive';
+import PasswordRecover from './Routes/Signup/PasswordRecover';
+
  
 class App extends Component {
   render () {
@@ -17,10 +19,11 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <Header />
-          <Route path="/(|signup)/" component={Signup} />
-          <Route path="/stream" component={Stream} />
-          <Route path="/archives" component={Archives} />
-          <Route path="/watch-archive" component={WatchArchive} />
+          <Route path="/(|ACCOUNT)/" component={Signup} />
+          <Route path="/STREAM" component={Stream} />
+          <Route path="/ARCHIVES" component={Archives} />
+          <Route path="/WATCH-ARCHIVE" component={WatchArchive} />
+          <Route path="/PASSWORD-RECOVERY" component={PasswordRecover} />
         </Router>
       </Provider>
     )

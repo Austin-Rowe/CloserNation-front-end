@@ -4,7 +4,10 @@ const initialState = {
     loggedIn: false,
     authToken: '',
     userName: '',
-  };
+    currentlySubscribed: false,
+    streamAddress: '',
+    archivedShows: []
+};
   
 const reducer = (state = initialState, action) => {
     switch(action.type){

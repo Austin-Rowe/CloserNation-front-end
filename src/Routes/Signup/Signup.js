@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 import './Signup.css';
@@ -13,6 +14,7 @@ class Signup extends Component {
             signupEmail: '',
             signupUsername: '',
             signupPassword: '',
+            signupPasswordConfirm: '',
             signinUser: '',
             signinPassword: '',
         }
@@ -32,7 +34,9 @@ class Signup extends Component {
     }
 
     login(e){
-        e.preventDefault();
+        if(e){
+            e.preventDefault();
+        }
         const {signinUser, signinPassword} = this.state;
         if(signinPassword === '' || signinUser === ''){
             window.alert("Password or Email is blank!");
@@ -51,17 +55,19 @@ class Signup extends Component {
               
             }).then(res => {
                 if(res.status !== 200){
-                    window.alert("LOGIN FAILURE! Please try again");
+                    window.alert("Invalid Credentials");
                 } 
                 return res.json();
             })
             .then(body => {
                 console.log(body);
-                this.props.dispatch({
-                    type: 'LOGIN',
-                    authToken: body.token,
-                    userName: signinUser
-                })
+                if(body.message === "Auth successful") {
+                    this.props.dispatch({
+                        type: 'LOGIN',
+                        authToken: body.token,
+                        userName: signinUser
+                    })
+                }
             })
             .catch(err => console.error('Error: ' + err));
         }
@@ -69,9 +75,11 @@ class Signup extends Component {
 
     signup(e){
         e.preventDefault();
-        const {signupEmail, signupUsername, signupPassword} = this.state;
-        if(signupEmail === '' || signupUsername === '' || signupPassword === ''){
+        const {signupEmail, signupUsername, signupPassword, signupPasswordConfirm } = this.state;
+        if(signupEmail === '' || signupUsername === '' || signupPassword === '' || signupPasswordConfirm === ''){
             window.alert("All fields must be filled");
+        } else if(signupPassword !== signupPasswordConfirm){
+            window.alert("Passwords do not match!")
         } else {
             window.alert("this gets sent");
             fetch('http://localhost:3000/user/signup', {
@@ -93,7 +101,14 @@ class Signup extends Component {
                 } 
                 return res.json();
             })
-            .then(body => console.log(body))
+            .then(body => {
+                console.log(body);
+                this.setState({
+                    signinUser: signupEmail,
+                    signinPassword: signupPassword
+                });
+                this.login();
+            })
             .catch(err => console.error('Error: ' + err));
         }
     }
@@ -104,18 +119,25 @@ class Signup extends Component {
         if(this.props.loggedIn === true){
             page = <SignedIn userName={this.props.userName} />
         } else {
-            page = <div id="forms-container">
-                <form className="form" onSubmit={this.login}>
-                    <h1 className="form-label" >LOG IN</h1>
-                    <input onChange={this.updateField} id="signinUser" className="signup-input" type="text" placeholder="username or email" value={this.state.signinUser} />
-                    <input onChange={this.updateField} id="signinPassword" className="signup-input" type="password" placeholder="password" value={this.state.signinPassword} />
-                    <input className="submit-button" type="submit" value="LOG IN" />
-                </form>
+            page = 
+            <div id="forms-container">
+                <div>
+                    <form className="form" onSubmit={this.login}>
+                        <h1 className="form-label" >LOG IN</h1>
+                        <input onChange={this.updateField} id="signinUser" className="signup-input" type="text" placeholder="Username or Email" value={this.state.signinUser} />
+                        <input onChange={this.updateField} id="signinPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signinPassword} />
+                        <input className="submit-button" type="submit" value="LOG IN" />
+                    </form>
+                    <Link to="/PASSWORD-RECOVERY" id="password-recovery">
+                        Forgot your password? Click Here.
+                    </Link>
+                </div>
                 <form className="form" onSubmit={this.signup}>
                     <h1 className="form-label" >SIGN UP</h1>
-                    <input onChange={this.updateField} id="signupUsername" className="signup-input" type="text" placeholder="username" value={this.state.signupUsername} />
-                    <input onChange={this.updateField} id="signupEmail" className="signup-input" type="email" placeholder="email" value={this.state.signupEmail} />
-                    <input onChange={this.updateField} id="signupPassword" className="signup-input" type="password" placeholder="password" value={this.state.signupPassword} />
+                    <input onChange={this.updateField} id="signupUsername" className="signup-input" type="text" placeholder="Username" value={this.state.signupUsername} />
+                    <input onChange={this.updateField} id="signupEmail" className="signup-input" type="email" placeholder="Email" value={this.state.signupEmail} />
+                    <input onChange={this.updateField} id="signupPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signupPassword} />
+                    <input onChange={this.updateField} id="signupPasswordConfirm" className="signup-input" type="password" placeholder="Confirm Password" value={this.state.signupPasswordConfirm} />
                     <input className="submit-button" type="submit" value="SIGN UP" />
                 </form>
             </div>
