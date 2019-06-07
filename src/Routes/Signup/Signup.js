@@ -15,6 +15,8 @@ class Signup extends Component {
             signupUsername: '',
             signupPassword: '',
             signupPasswordConfirm: '',
+            signupFirstName: '',
+            signupLastName: '',
             signinUser: '',
             signinPassword: '',
         }
@@ -65,7 +67,8 @@ class Signup extends Component {
                     this.props.dispatch({
                         type: 'LOGIN',
                         authToken: body.token,
-                        userName: signinUser
+                        userName: signinUser,
+                        admin: body.admin
                     })
                 }
             })
@@ -75,20 +78,21 @@ class Signup extends Component {
 
     signup(e){
         e.preventDefault();
-        const {signupEmail, signupUsername, signupPassword, signupPasswordConfirm } = this.state;
+        const {signupEmail, signupUsername, signupPassword, signupPasswordConfirm, signupFirstName, signupLastName } = this.state;
         if(signupEmail === '' || signupUsername === '' || signupPassword === '' || signupPasswordConfirm === ''){
             window.alert("All fields must be filled");
         } else if(signupPassword !== signupPasswordConfirm){
             window.alert("Passwords do not match!")
         } else {
-            window.alert("this gets sent");
             fetch('http://localhost:3000/user/signup', {
                 method: 'post',
                 
                 body: JSON.stringify({
                     email: signupEmail,
                     userName: signupUsername,
-                    password: signupPassword
+                    password: signupPassword,
+                    firstName: signupFirstName,
+                    lastName: signupLastName
                 }),
               
                 headers: {
@@ -134,6 +138,8 @@ class Signup extends Component {
                 </div>
                 <form className="form" onSubmit={this.signup}>
                     <h1 className="form-label" >SIGN UP</h1>
+                    <input onChange={this.updateField} id="signupFirstName" className="signup-input" type="text" placeholder="First Name" value={this.state.signupFirstName} />
+                    <input onChange={this.updateField} id="signupLastName" className="signup-input" type="text" placeholder="Last Name" value={this.state.signupLastName} />
                     <input onChange={this.updateField} id="signupUsername" className="signup-input" type="text" placeholder="Username" value={this.state.signupUsername} />
                     <input onChange={this.updateField} id="signupEmail" className="signup-input" type="email" placeholder="Email" value={this.state.signupEmail} />
                     <input onChange={this.updateField} id="signupPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signupPassword} />

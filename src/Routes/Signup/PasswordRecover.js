@@ -39,7 +39,7 @@ class PasswordRecover extends Component {
         return ( 
             <div id="password-recover-container">
                 <form className="form" onSubmit={this.requestEmailReset}>
-                    <h1 className="form-label" >GET RESET EMAIL</h1>
+                    <h1 className="form-label" >GET PASSWORD RESET EMAIL</h1>
                     <input onChange={this.updateField} id="recoveryEmail" className="signup-input" type="text" placeholder="Account Email" value={this.state.recoveryEmail} />
                     <input className="submit-button" type="submit" value="REQUEST EMAIL" />
                 </form>

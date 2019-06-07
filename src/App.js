@@ -6,6 +6,8 @@ import store from './Redux/store';
 
 
 import Header from './Navigation/Header/Header';
+import Footer from './Navigation/Footer/Footer';
+
 import Stream from './Routes/StreamPage/Stream';
 import Signup from './Routes/Signup/Signup';
 import Archives from './Routes/Archives/Archives';
@@ -24,6 +26,7 @@ class App extends Component {
           <Route path="/ARCHIVES" component={Archives} />
           <Route path="/WATCH-ARCHIVE" component={WatchArchive} />
           <Route path="/PASSWORD-RECOVERY" component={PasswordRecover} />
+          <Footer />
         </Router>
       </Provider>
     )

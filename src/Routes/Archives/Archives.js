@@ -1,36 +1,104 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 
 import './Archives.css';
 
-const Archive = (props) => {
-    return ( 
-        <Link to="/WATCH-ARCHIVE">
-            <div className="archive-container">
-                <img className="archive-image" src="/Nav-Images/Shield2.png" alt="BEST CLOSER SHOW"/>
-                <h1 className="archive-title">{props.title}</h1>
-                <p className="archive-description">{props.description}</p>
-            </div>
-        </Link>
-    );
+class Archive extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.setReduxSelectedArchive = this.setReduxSelectedArchive.bind(this);
+    }
+
+    setReduxSelectedArchive(){
+        this.props.dispatch({
+            type: "SELECTARCHIVE",
+            selectedArchive: this.props.archive
+        });
+    }
+
+    render() {
+
+        return ( 
+            <Link to="/WATCH-ARCHIVE" onClick={this.setReduxSelectedArchive} >
+                <div className="archive-container">
+                    <h1 className="archive-title">{this.props.title}</h1>
+                    <p className="archive-description">{this.props.description}</p>
+                </div>
+            </Link>
+        );
+    }
 }
  
 class Archives extends Component {
-    state = {  }
+    constructor(props){
+        super(props);
+
+        this.getResources = this.getResources.bind(this);
+    }
+
+    getResources(){
+        fetch('http://localhost:3000/resources', {
+            
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': this.props.authToken
+            }
+            
+        }).then(res => {
+            if(res.status !== 200){
+                console.log("getResources fetch failed")
+            } 
+            return res.json();
+        })
+        .then(body => {
+            let archives = [];
+            body.docs.forEach(doc => {
+                if(doc.isStreamLink){
+                    this.props.dispatch({
+                        type: 'SETSTREAMADDRESS',
+                        streamAddress: doc.URL
+                    });
+                } else {
+                    archives.push(doc);
+                }
+            });
+            this.props.dispatch({
+                type: 'SETARCHIVEDSHOWS',
+                archivedShows: archives
+            });
+        })
+        .catch(err => console.error('Error: ' + err));
+    }
+
+    componentDidMount(){
+        if(this.props.archivedShows.length  < 1){
+            this.getResources();
+            console.log("getResources() ran");
+        }
+    }
+
     render() { 
-        const dummyDescription = "In todays episode we will describe how the world is seemingly crumbling into chaos. The truth of the matter is that it IS NOT! There is a hidden plan that will change everything, and soon it will come to the light."
+        const archives = this.props.archivedShows.map(archive => <Archive archive={archive} dispatch={this.props.dispatch} title={archive.title} description={archive.description} key={archive.title}  /> );
         return ( 
             <div id="archives-container">
+                {this.props.loggedIn? null : <Redirect to="/ACCOUNT" />}
                 <h1>ARCHIVED SHOWS</h1>
                 <div>
-                    <Archive title="March 4th, 2019: Trump Bulldozes Frauds" description={dummyDescription} videoSource="https://s3.us-east-2.amazonaws.com/closer-nation-dummy-bucket/Moored_Boats_Calm_Lake.mp4" />
-                    <Archive title="March 4th, 2019: Trump Bulldozes Frauds" description={dummyDescription} videoSource="https://s3.us-east-2.amazonaws.com/closer-nation-dummy-bucket/Moored_Boats_Calm_Lake.mp4" />
-                    <Archive title="March 4th, 2019: Trump Bulldozes Frauds" description={dummyDescription} videoSource="https://s3.us-east-2.amazonaws.com/closer-nation-dummy-bucket/Moored_Boats_Calm_Lake.mp4" />
-                    <Archive title="March 4th, 2019: Trump Bulldozes Frauds" description={dummyDescription} videoSource="https://s3.us-east-2.amazonaws.com/closer-nation-dummy-bucket/Moored_Boats_Calm_Lake.mp4" />
+                    {archives}
                 </div>
             </div>
         );
     }
 }
  
-export default Archives;
+const mapStateToProps = state => ({
+    loggedIn: state.loggedIn,
+    authToken: state.authToken,
+    userName: state.userName,
+    admin: state.admin,
+    archivedShows: state.archivedShows
+});
+ 
+export default connect(mapStateToProps)(Archives);

@@ -8,9 +8,28 @@
     max-height: 95vh;
 }
 
+#watch-archive-description {
+    max-width: 90%;
+    margin: auto;
+}
+
 @media(min-width: 1200px){
     #watch-archive-container {
+        max-width: 97%;
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 3fr 1fr;
+    }
+
+    #archives-wrapper {
+        max-height: 85vh;
+        overflow-y: auto;
+        border: 1px solid grey;
+        border-radius: 30px;
+        padding: 0 10px;
+        -ms-overflow-style: none;
+    }
+
+    #archives-wrapper::-webkit-scrollbar { 
+        width: 0 !important 
     }
 }

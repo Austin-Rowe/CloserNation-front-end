@@ -38,7 +38,7 @@ class Header extends Component {
 
     menuToggle(e){
         e.stopPropagation();
-        this.setState(state => ({menuVisible: !state.menuVisible}))
+        this.setState(state => ({menuVisible: !state.menuVisible, watchDropDownVisible: false}))
     }
 
     hideMenu(){

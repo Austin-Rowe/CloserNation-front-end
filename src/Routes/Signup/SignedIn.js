@@ -12,7 +12,6 @@ class SignedIn extends Component {
         }
 
         this.logout = this.logout.bind(this);
-        this.checkSubStatus = this.checkSubStatus.bind(this);
         this.deleteAccount = this.deleteAccount.bind(this);
         this.updateField = this.updateField.bind(this);
     }
@@ -25,10 +24,6 @@ class SignedIn extends Component {
         this.props.dispatch({
             type: 'LOGOUT'
         });
-    }
-
-    checkSubStatus(){
-        window.alert("checkSubStatus");
     }
 
     deleteAccount(){
@@ -66,12 +61,11 @@ class SignedIn extends Component {
 
         return ( 
             <div id="signed-in-container">
-                <h1>Welcome back {props.userName}!</h1>
+                <h1>Hello {props.userName}!</h1>
                 <h2>Manage your account from this page.</h2>
                 <button onClick={this.logout} className="signed-in-button logout" >Logout</button>
-                <button onClick={this.checkSubStatus} className="signed-in-button check-subscription" >Subscription Status</button>
-                <input className="delete-confirmation-input" id="identity" type="text" placeholder="Username or Password" value={this.state.identity} onChange={this.updateField} />
-                <input className="delete-confirmation-input" id="password" type="password" placeholder="password" value={this.state.password} onChange={this.updateField} />
+                <input className="delete-confirmation-input" id="identity" type="text" placeholder="Username or Email" value={this.state.identity} onChange={this.updateField} />
+                <input className="delete-confirmation-input" id="password" type="password" placeholder="Password" value={this.state.password} onChange={this.updateField} />
                 <button onClick={this.deleteAccount} className="signed-in-button delete-account" >Delete Account</button>
             </div>
         );

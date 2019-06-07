@@ -1,9 +1,9 @@
 import React, { Component } from 'react'; 
+import { connect } from 'react-redux';
 
 import chatFuncs from '../../API/chat';
 import './Chat.css';
 
-const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvd2ViYWxsZXJAZ21haWwuY29tIiwidXNlck5hbWUiOiJyb3dlYmFsbGVyIiwiX2lkIjoiNWNkMzcxYzgwYmYwMTkyNWI0MjNlMDhlIiwicGFpZFN1YnNjcmlwdGlvbiI6ZmFsc2UsImFkbWluIjpmYWxzZSwiaWF0IjoxNTU4NzE4MjI3LCJleHAiOjE1NTg3NDcwMjd9.3bjUU7zsRbqhRvYrVhJRxCy5AJuQ1_ot8n6QgkCn97g";
 
 const Message = (props) => {
     const {messageObj} = props;
@@ -51,7 +51,7 @@ class Chat extends Component {
             window.alert("Message cannot be more than 500 characters");
         } else {
             console.log('sent message: ' + this.state.message);
-            chatFuncs.postMessage(userToken, this.state.message);
+            chatFuncs.postMessage(this.props.authToken, this.state.message);
             this.setState({message: ''});
         }
     }
@@ -74,4 +74,12 @@ class Chat extends Component {
     }
 }
  
-export default Chat;
+
+const mapStateToProps = state => ({
+    loggedIn: state.loggedIn,
+    authToken: state.authToken,
+    userName: state.userName,
+    streamAddress: state.streamAddress
+});
+  
+export default connect(mapStateToProps)(Chat);
