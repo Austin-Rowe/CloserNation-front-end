@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Chat from './Chat';
+import UnmuteUser from './UnmuteUser';
 import './Stream.css';
 
 /* const StreamNotLive = (props) => {
@@ -82,6 +83,13 @@ class Stream extends Component {
         <div id="chat-container">
           <Chat />
         </div>
+        {this.props.admin? 
+          <div id="unmute-user-container">
+            <UnmuteUser />
+          </div>
+          :
+          null
+        }
       </div>
     )
   }
@@ -91,7 +99,8 @@ const mapStateToProps = state => ({
   loggedIn: state.loggedIn,
   authToken: state.authToken,
   userName: state.userName,
-  streamAddress: state.streamAddress
+  streamAddress: state.streamAddress,
+  admin: state.admin
 });
 
 export default connect(mapStateToProps)(Stream);

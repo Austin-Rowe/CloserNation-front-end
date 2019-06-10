@@ -28,6 +28,21 @@
 .username-label {
     margin: 5px 0 0 12px;
     font-size: 80%;
+    display: inline;
+}
+
+.mute {
+    display: inline;
+    font-size: 80%;
+    margin-left: 3px;
+    background: rgb(41, 41, 41);
+    color: white;
+    border-radius: 20px;
+    padding: 3px 6px;
+}
+
+.mute:hover {
+    cursor: pointer;
 }
 
 .chat-message {
@@ -37,7 +52,7 @@
     background: rgb(0, 0, 100);
     color: white;
     border-radius: 10px;
-    margin: 0 auto 0 5px;
+    margin: 3px auto 0 5px;
     padding: 7px;
 }
 
@@ -81,4 +96,11 @@
 
 #message-submit:hover {
     cursor: pointer;
+}
+
+#empty-chat-message {
+    width: 95%; 
+    margin: 10px auto;
+    font-size: 20px;
+    text-align: center;
 }

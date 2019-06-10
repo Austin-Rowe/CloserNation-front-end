@@ -1,0 +1,25 @@
+#unmute-users-container {
+    text-align: center;
+}
+
+.muted-user-button {
+    border: 1px solid rgb(165, 165, 165);
+    border-radius: 100px;
+    background: silver;    
+    margin: 10px;
+    padding: 10px;
+}
+
+.muted-user-button:hover {
+    cursor: pointer;
+    background: black;
+    color: white;
+}
+
+.hide{
+    display: none;
+}
+
+#muted-users-list-container {
+    padding: 0;
+}

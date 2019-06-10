@@ -4,15 +4,60 @@ import { connect } from 'react-redux';
 import chatFuncs from '../../API/chat';
 import './Chat.css';
 
+class Message extends Component {
+    constructor(props) {
+        super(props);
 
-const Message = (props) => {
-    const {messageObj} = props;
-    return ( 
-        <li className="message-container">
-            <div className="username-label">{messageObj.userName}</div>
-            <p className='chat-message' >{messageObj.message}</p>
-        </li>
-    );
+        this.state = {
+            muted: false
+        }
+
+        this.toggleMute = this.toggleMute.bind(this);
+    }
+
+    toggleMute(){
+        const { userName } = this.props.messageObj;
+        fetch(`http://localhost:3000/user/alter-permissions/${userName}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                "changes": [
+                    {"propName": "canChat", "value": false}
+                ]
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': this.props.authToken
+            }
+            
+        }).then(res => {
+            if(res.status !== 200){
+                console.log("muting user failed")
+            } 
+            if(res.status === 200){
+                this.setState(state => ({muted: !state.muted}))
+            }
+            return res.json();
+        })
+        .then(body => {
+            console.log(body);
+        })
+        .catch(err => console.error('Error: ' + err));
+    }
+
+    render() {
+        const { messageObj} = this.props;
+        return ( 
+            <li className="message-container">
+                <div className="username-label">{messageObj.userName}</div>
+                {this.props.admin? 
+                    <div className="mute" onClick={this.toggleMute} >MUTE</div>
+                    :
+                    null
+                }
+                <p className='chat-message' >{messageObj.message}</p>
+            </li>
+        );
+    }
 }
  
 class Chat extends Component {
@@ -23,7 +68,8 @@ class Chat extends Component {
             messages: [],
             message: '',
             messageErr: false,
-            errMessage: ''
+            errMessage: '',
+            mutedUserNames: []
         }
 
         chatFuncs.handleIncomingMessage(
@@ -40,7 +86,30 @@ class Chat extends Component {
             }
         );
 
+        this.loadMutedUserList = this.loadMutedUserList.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
+    }
+
+    loadMutedUserList(){
+        fetch(`http://localhost:3000/user/muted-users`, {
+            headers: {
+                'Authorization': this.props.authToken
+            }
+            
+        }).then(res => {
+            if(res.status !== 200){
+                console.error("error retrieving muted users")
+            } 
+            return res.json();
+        })
+        .then(body => {
+            this.setState({mutedUserNames: body})
+        })
+        .catch(err => console.error('Error: ' + err));
+    }
+
+    componentDidMount(){
+        this.loadMutedUserList();
     }
 
     sendMessage(e){
@@ -55,11 +124,18 @@ class Chat extends Component {
             this.setState({message: ''});
         }
     }
+
+    
     
     render() { 
-        let messages = this.state.messages.map(messageObj => 
-            <Message key={messageObj.userName + this.state.messages.indexOf(messageObj)} messageObj={messageObj} />   
-        )
+        let messages;
+        if(this.state.messages.length === 0){
+            messages = <div id="empty-chat-message">No messages yet</div>
+        } else {
+            messages = this.state.messages.map(messageObj => 
+                <Message key={messageObj.userName + '_' + this.state.messages.indexOf(messageObj)} messageObj={messageObj} admin={this.props.admin} user={this.props.userName} authToken={this.props.authToken} />   
+            )
+        }
         return ( 
             <div id="chat-holder" >
                 <ul id="messages-list">{messages}</ul>
@@ -79,7 +155,8 @@ const mapStateToProps = state => ({
     loggedIn: state.loggedIn,
     authToken: state.authToken,
     userName: state.userName,
-    streamAddress: state.streamAddress
+    streamAddress: state.streamAddress,
+    admin: state.admin
 });
   
 export default connect(mapStateToProps)(Chat);

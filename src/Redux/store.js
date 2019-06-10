@@ -8,7 +8,8 @@ const initialState = {
     streamAddress: '',
     archivedShows: [],
     admin: false,
-    selectedArchive: {}
+    selectedArchive: {},
+    refetchMutedUserList: false
 };
   
 const reducer = (state = initialState, action) => {
@@ -18,6 +19,7 @@ const reducer = (state = initialState, action) => {
         case "SETSTREAMADDRESS": return {...state, streamAddress: action.streamAddress};
         case "SETARCHIVEDSHOWS": return {...state, archivedShows: action.archivedShows};
         case "SELECTARCHIVE": return {...state, selectedArchive: action.selectedArchive};
+        case "REFETCHMUTEDUSERLIST": return {...state, refetchMutedUserList: action.refetch};
         default: return state;
     }
 }

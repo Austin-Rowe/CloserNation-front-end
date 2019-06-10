@@ -44,22 +44,33 @@
         margin: 0 auto;
         display: grid;
         grid-template-columns: 2fr 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    #stream-container {
+        width: 90%;
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+
+    #unmute-user-container {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
     }
 
     #chat-container {
+        width: 90%;
+        height: 80vh;
         padding-bottom: 0;
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
     }
     
     #messages-list {
         height: 93%;
     }
 
-    #stream-container {
-        width: 90%;
-    }
+    
 
-    #chat-container {
-        width: 90%;
-        height: 80vh;
-    }
+   
 }
