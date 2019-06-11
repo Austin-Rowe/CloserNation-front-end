@@ -22,7 +22,7 @@ class PasswordRecover extends Component {
 
     requestEmailReset(e){
         e.preventDefault();
-        fetch(`http://bestclosershow.com/password-reset-request/${this.state.recoveryEmail}`)
+        fetch(`https://api.bestclosershow.com/password-reset-request/${this.state.recoveryEmail}`)
         .then(res => {
             if(res.status !== 200){
                 window.alert("Email not found");

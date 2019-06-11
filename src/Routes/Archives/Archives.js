@@ -39,7 +39,7 @@ class Archives extends Component {
     }
 
     getResources(){
-        fetch('http://bestclosershow.com/resources', {
+        fetch('https://api.bestclosershow.com/resources', {
             
             headers: {
                 'Content-Type': 'application/json',

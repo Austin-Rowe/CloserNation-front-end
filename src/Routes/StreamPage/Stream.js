@@ -7,14 +7,6 @@ import Chat from './Chat';
 import UnmuteUser from './UnmuteUser';
 import './Stream.css';
 
-/* const StreamNotLive = (props) => {
-  return (
-    <div id="stream-not-live-container">
-      <div id="">CLOSE X</div>
-      <h1 id="stream-not-live-comment">Stream is currently not live!</h1>
-    </div>
-  );
-} */
 
 class Stream extends Component {
   constructor(){
@@ -27,7 +19,7 @@ class Stream extends Component {
   }
 
   getResources(){
-    fetch('http://bestclosershow.com/resources', {
+    fetch('https://api.bestclosershow.com/resources', {
         
       headers: {
         'Content-Type': 'application/json',

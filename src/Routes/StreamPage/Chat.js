@@ -13,7 +13,7 @@ class Message extends Component {
 
     toggleMute(){
         const { userName } = this.props.messageObj;
-        fetch(`http://bestclosershow.com/user/alter-permissions/${userName}`, {
+        fetch(`https://api.bestclosershow.com/user/alter-permissions/${userName}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 "changes": [

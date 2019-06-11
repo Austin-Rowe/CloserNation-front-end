@@ -1,5 +1,5 @@
 import openSocket from 'socket.io-client'; 
-const socket = openSocket('http://bestclosershow.com');
+const socket = openSocket('https://api.bestclosershow.com');
 
 const chatFuncs = {
     

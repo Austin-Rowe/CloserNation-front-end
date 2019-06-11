@@ -43,7 +43,7 @@ class Signup extends Component {
         if(signinPassword === '' || signinUser === ''){
             window.alert("Password or Email is blank!");
         } else {
-            fetch('http://bestclosershow.com/user/login', {
+            fetch('https://api.bestclosershow.com/user/login', {
                 method: 'post',
                 
                 body: JSON.stringify({
@@ -84,7 +84,7 @@ class Signup extends Component {
         } else if(signupPassword !== signupPasswordConfirm){
             window.alert("Passwords do not match!")
         } else {
-            fetch('http://bestclosershow.com/user/signup', {
+            fetch('https://api.bestclosershow.com/user/signup', {
                 method: 'post',
                 
                 body: JSON.stringify({
