@@ -7,10 +7,6 @@ import './WatchArchive.css';
 import Archives from './Archives';
 
 class WatchArchive extends Component {
-    constructor(props){
-        super(props);
-    }
-    
     render() { 
         const { title, URL, description, isStreamLink } = this.props.archive;
         return ( 
