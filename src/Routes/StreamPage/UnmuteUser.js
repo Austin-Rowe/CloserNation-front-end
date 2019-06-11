@@ -60,26 +60,29 @@ class UnmuteUser extends Component {
     }
 
     fetchMutedUsers(){
-        fetch(`http://bestclosershow.com/user/muted-users`, {
-            headers: {
-                'Authorization': this.props.authToken
-            }
-            
-        }).then(res => {
-            if(res.status !== 200){
-                console.error("error retrieving muted users unmuteUser Comp")
-            } 
-            return res.json();
-        })
-        .then(body => {
-            console.log(body);
-            this.setState({mutedUserNames: body});
-            this.props.dispatch({
-                type: "REFETCHMUTEDUSERLIST",
-                refetch: false
+        if(this.props.refetchMutedUserList){
+            fetch(`http://localhost:3000/user/muted-users`, {
+                headers: {
+                    'Authorization': this.props.authToken
+                }
+                
+            }).then(res => {
+                if(res.status !== 200){
+                    console.error("error retrieving muted users unmuteUser Comp")
+                } else if(res.status === 200){
+                    this.props.dispatch({
+                        type: "REFETCHMUTEDUSERLIST",
+                        refetch: false
+                    })
+                }
+                return res.json();
             })
-        })
-        .catch(err => console.error('Error: ' + err));
+            .then(body => {
+                console.log(body);
+                this.setState({mutedUserNames: body});
+            })
+            .catch(err => console.error('Error: ' + err));
+        }
     }
 
     componentDidMount(){
