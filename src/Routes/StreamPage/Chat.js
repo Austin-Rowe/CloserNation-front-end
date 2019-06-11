@@ -8,10 +8,6 @@ class Message extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            muted: false
-        }
-
         this.toggleMute = this.toggleMute.bind(this);
     }
 
@@ -34,12 +30,12 @@ class Message extends Component {
                 console.log("muting user failed")
             } 
             if(res.status === 200){
-                this.setState(state => ({muted: !state.muted}))
+                this.props.dispatch({
+                    type: "REFETCHMUTEDUSERLIST",
+                    refetch: true
+                })
             }
             return res.json();
-        })
-        .then(body => {
-            console.log(body);
         })
         .catch(err => console.error('Error: ' + err));
     }
@@ -86,30 +82,7 @@ class Chat extends Component {
             }
         );
 
-        this.loadMutedUserList = this.loadMutedUserList.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
-    }
-
-    loadMutedUserList(){
-        fetch(`http://localhost:3000/user/muted-users`, {
-            headers: {
-                'Authorization': this.props.authToken
-            }
-            
-        }).then(res => {
-            if(res.status !== 200){
-                console.error("error retrieving muted users")
-            } 
-            return res.json();
-        })
-        .then(body => {
-            this.setState({mutedUserNames: body})
-        })
-        .catch(err => console.error('Error: ' + err));
-    }
-
-    componentDidMount(){
-        this.loadMutedUserList();
     }
 
     sendMessage(e){
@@ -129,12 +102,12 @@ class Chat extends Component {
     
     render() { 
         let messages;
-        if(this.state.messages.length === 0){
-            messages = <div id="empty-chat-message">No messages yet</div>
-        } else {
+        if(this.state.messages.length !== 0){
             messages = this.state.messages.map(messageObj => 
-                <Message key={messageObj.userName + '_' + this.state.messages.indexOf(messageObj)} messageObj={messageObj} admin={this.props.admin} user={this.props.userName} authToken={this.props.authToken} />   
+                <Message key={messageObj.userName + '_' + this.state.messages.indexOf(messageObj)} messageObj={messageObj} admin={this.props.admin} user={this.props.userName} authToken={this.props.authToken} dispatch={this.props.dispatch} />   
             )
+        } else {
+            messages = <div id="empty-chat-message">No messages yet</div>
         }
         return ( 
             <div id="chat-holder" >
