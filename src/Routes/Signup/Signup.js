@@ -68,7 +68,8 @@ class Signup extends Component {
                         type: 'LOGIN',
                         authToken: body.token,
                         userName: signinUser,
-                        admin: body.admin
+                        admin: body.admin,
+                        currentlySubscribed: body.paidSubscription
                     })
                 }
             })

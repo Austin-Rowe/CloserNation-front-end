@@ -14,6 +14,7 @@ class SignedIn extends Component {
         this.logout = this.logout.bind(this);
         this.deleteAccount = this.deleteAccount.bind(this);
         this.updateField = this.updateField.bind(this);
+        this.subscribe = this.subscribe.bind(this);
     }
 
     updateField(e){
@@ -56,6 +57,27 @@ class SignedIn extends Component {
         
     }
 
+    subscribe(){
+        fetch('https://api.bestclosershow.com/paypal/subscribe', {
+            method: 'post',
+            
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': this.props.authToken
+            }
+            
+        }).then(res => {
+            if(res.status !== 200){
+                window.alert("Error subscribing. Please try again!");
+            } 
+            return res.json();
+        })
+        .then(body => {
+            window.location.href = body.approvalLink;
+        })
+        .catch(err => console.error('Error: ' + err));
+    }
+
     render() {
         const { props } = this;
 
@@ -64,6 +86,7 @@ class SignedIn extends Component {
                 <h1>Hello {props.userName}!</h1>
                 <h2>Manage your account from this page.</h2>
                 <button onClick={this.logout} className="signed-in-button logout" >Logout</button>
+                {this.props.currentlySubscribed? null : <button onClick={this.subscribe} className="signed-in-button" >Subscribe</button>}
                 <input className="delete-confirmation-input" id="identity" type="text" placeholder="Username or Email" value={this.state.identity} onChange={this.updateField} />
                 <input className="delete-confirmation-input" id="password" type="password" placeholder="Password" value={this.state.password} onChange={this.updateField} />
                 <button onClick={this.deleteAccount} className="signed-in-button delete-account" >Delete Account</button>
@@ -75,7 +98,8 @@ class SignedIn extends Component {
 const mapStateToProps = state => ({
     loggedIn: state.loggedIn,
     authToken: state.authToken,
-    userName: state.userName
+    userName: state.userName,
+    currentlySubscribed: state.currentlySubscribed
 });
  
 export default connect(mapStateToProps)(SignedIn);

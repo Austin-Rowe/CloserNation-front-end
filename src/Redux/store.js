@@ -14,7 +14,7 @@ const initialState = {
   
 const reducer = (state = initialState, action) => {
     switch(action.type){
-        case "LOGIN": return {...state, loggedIn: true, authToken: action.authToken, userName: action.userName, admin: action.admin};
+        case "LOGIN": return {...state, loggedIn: true, authToken: action.authToken, userName: action.userName, admin: action.admin, currentlySubscribed: action.currentlySubscribed};
         case "LOGOUT": return {...state, loggedIn: false, authToken: '', userName: '', admin: false};
         case "SETSTREAMADDRESS": return {...state, streamAddress: action.streamAddress};
         case "SETARCHIVEDSHOWS": return {...state, archivedShows: action.archivedShows};
