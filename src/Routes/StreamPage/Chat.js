@@ -17,7 +17,7 @@ class Message extends Component {
 
     toggleMute(){
         const { userName } = this.props.messageObj;
-        fetch(`http://localhost:3000/user/alter-permissions/${userName}`, {
+        fetch(`http://bestclosershow.com/user/alter-permissions/${userName}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 "changes": [
@@ -91,7 +91,7 @@ class Chat extends Component {
     }
 
     loadMutedUserList(){
-        fetch(`http://localhost:3000/user/muted-users`, {
+        fetch(`http://bestclosershow.com/user/muted-users`, {
             headers: {
                 'Authorization': this.props.authToken
             }
@@ -143,7 +143,7 @@ class Chat extends Component {
                     <input id="message-input" type='text' value={this.state.message} onChange={event => this.setState({message: event.target.value})} />
                 </form>
                 <button id="message-submit" onClick={this.sendMessage} alt="submit">
-                    <img id="message-submit-image" src="/Nav-Images/ic-send_97591.png" alt="SEND"/>
+                    <img id="message-submit-image" src="/Images/sendMessage.png" alt="SEND"/>
                 </button>
             </div>            
         );

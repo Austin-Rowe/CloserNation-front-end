@@ -61,7 +61,7 @@ class Header extends Component {
                     <div className="hamburger-bar" ></div>
                     <div className="hamburger-bar" ></div>
                 </div>
-                <img id="header-image" src={this.state.mobile? "/Nav-Images/HeaderMobile.jpg" : "Nav-Images/LightHeader.jpg"} alt="CLOSER NATION SHOW"/>
+                <img id="header-image" src={this.state.mobile? "/Images/HeaderMobile.jpg" : "/Images/LightHeader.jpg"} alt="CLOSER NATION SHOW"/>
                 <Link to="/ACCOUNT" onClick={this.state.mobile? this.hideMenu : null}>
                     <div className={this.state.menuVisible? "header-option" : "header-option hidden"} >
                         <h1>ACCOUNT</h1>
@@ -90,31 +90,9 @@ class Header extends Component {
                         </Link>
                     </div>
                 </div>         
-                
-                
             </div>
         );
     }
 }
  
 export default Header;
-
-{/* <div id="header-container">
-    <div id="drop-down-toggle" onClick={this.menuToggle}>
-        <div className="hamburger-bar" ></div>
-        <div className="hamburger-bar" ></div>
-        <div className="hamburger-bar" ></div>
-    </div>
-    <img id="header" src={this.state.mobile? "/Nav-Images/HeaderMobile.jpg" : "Nav-Images/Header.png"} alt="CLOSER NATION SHOW"/>
-    <div id="nav-items-container" className={this.state.menuVisible? 'show-nav' : 'hidden'}>
-        <a href="/SIGNUP"><div className="nav-option" >SIGNUP/SIGNIN</div></a>
-        <a href="https://indictmentclothing.com" target="_blank" rel="noopener noreferrer"><div className="nav-option" >SHOP</div></a>
-        <div className="nav-option" onMouseEnter={this.toggleWatchDropDown} onMouseLeave={this.toggleWatchDropDown} >
-            WATCH
-            <div className="nav-drop-down" >
-                <a href="/STREAM"><div className={this.state.watchDropDownVisible? "nav-drop-down-item show" : "nav-drop-down-item"} >LIVE</div></a>
-                <a href="/ARCHIVES"><div className={this.state.watchDropDownVisible? "nav-drop-down-item show" : "nav-drop-down-item"} >ARCHIVES</div></a>
-            </div>
-        </div>
-    </div>
-</div> */}

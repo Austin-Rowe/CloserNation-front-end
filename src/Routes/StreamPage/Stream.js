@@ -27,7 +27,7 @@ class Stream extends Component {
   }
 
   getResources(){
-    fetch('http://localhost:3000/resources', {
+    fetch('http://bestclosershow.com/resources', {
         
       headers: {
         'Content-Type': 'application/json',

@@ -28,7 +28,7 @@ class SignedIn extends Component {
 
     deleteAccount(){
         if(window.confirm("Are you sure you want to delete your account?")){
-            fetch('http://localhost:3000/user', {
+            fetch('http://bestclosershow.com/user', {
                 method: 'delete',
                 
                 body: JSON.stringify({

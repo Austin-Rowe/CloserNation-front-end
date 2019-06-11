@@ -15,7 +15,7 @@ class MutedUser extends React.Component {
 
     unmuteUser(){
         const { userName, authToken } = this.props;
-        fetch(`http://localhost:3000/user/alter-permissions/${userName}`, {
+        fetch(`http://bestclosershow.com/user/alter-permissions/${userName}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 "changes": [
@@ -60,7 +60,7 @@ class UnmuteUser extends Component {
     }
 
     fetchMutedUsers(){
-        fetch(`http://localhost:3000/user/muted-users`, {
+        fetch(`http://bestclosershow.com/user/muted-users`, {
             headers: {
                 'Authorization': this.props.authToken
             }
