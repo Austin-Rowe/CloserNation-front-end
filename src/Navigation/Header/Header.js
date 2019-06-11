@@ -42,11 +42,13 @@ class Header extends Component {
     }
 
     hideMenu(){
-        this.setState({menuVisible: false});
+        this.setState({menuVisible: false, watchDropDownVisible: false});
     }
 
     toggleWatchDropDown(){
-        this.setState(state => ({watchDropDownVisible: !state.watchDropDownVisible}));
+        this.setState(state => ({
+            watchDropDownVisible: state.menuVisible? !state.watchDropDownVisible : false
+        }));
     }
     
     hideWatchDropDown(){
