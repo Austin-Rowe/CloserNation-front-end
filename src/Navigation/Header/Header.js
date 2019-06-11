@@ -31,7 +31,7 @@ class Header extends Component {
         window.addEventListener('resize', () => {
             this.setState({
                 mobile: window.innerWidth < 600,
-                menuVisible: window.innerWidth >= 60
+                menuVisible: window.innerWidth >= 600
             })
         });
     }
