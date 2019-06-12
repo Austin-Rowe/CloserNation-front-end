@@ -20,6 +20,7 @@ const reducer = (state = initialState, action) => {
         case "SETARCHIVEDSHOWS": return {...state, archivedShows: action.archivedShows};
         case "SELECTARCHIVE": return {...state, selectedArchive: action.selectedArchive};
         case "REFETCHMUTEDUSERLIST": return {...state, refetchMutedUserList: action.refetch};
+        case "CLEARARCHIVES": return {...state, archivedShows: [], selectedArchive: {}};
         default: return state;
     }
 }

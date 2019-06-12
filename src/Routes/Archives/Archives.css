@@ -1,8 +1,31 @@
 #archives-container {
     width: 95%;
+    min-height: 40vh;
     margin: 10px auto;
     align-content: center;
     text-align: center;
+}
+
+#add-archive-link {
+    color: blue;
+    text-decoration: underline;
+    display: inline;
+}
+
+.link {
+    color: blue;
+    text-decoration: underline;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+.delete-archive-button {
+    color: blue;
+    text-decoration: underline;
+    display: inline;
+    font-size: 1em;
 }
 
 .archive-container {
@@ -30,8 +53,10 @@
 
 .archive-title {
     margin: auto;
+    margin-right: 10px;
     /* margin-left: 10px; */
     font-size: 1.5em;
+    display: inline;
     /* grid-row: 1 / 2; */
 }
 

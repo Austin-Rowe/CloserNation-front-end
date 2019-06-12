@@ -9,6 +9,7 @@ class Archive extends React.Component {
         super(props);
 
         this.setReduxSelectedArchive = this.setReduxSelectedArchive.bind(this);
+        this.removeArchive = this.removeArchive.bind(this);
     }
 
     setReduxSelectedArchive(){
@@ -18,12 +19,36 @@ class Archive extends React.Component {
         });
     }
 
+    removeArchive(e){
+        e.preventDefault();
+        const { archive, authToken } = this.props;
+        fetch(`https://api.bestclosershow.com/resources/${archive._id}`, {
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authToken
+            }
+        }).then(res => {
+            if(res.status !== 200){
+                window.alert("Resource not deleted");
+            } else if (res.status === 200) {
+                window.alert("Resource deleted");
+                this.props.dispatch({
+                    type: "CLEARARCHIVES"
+                });
+            }
+        })
+        .catch(err => console.error('Error: ' + err));
+    }
+
+
     render() {
 
         return ( 
             <Link to="/WATCH-ARCHIVE" onClick={this.setReduxSelectedArchive} >
                 <div className="archive-container">
                     <h1 className="archive-title">{this.props.title}</h1>
+                    {this.props.admin? <h1 className="delete-archive-button" onClick={this.removeArchive} >DELETE</h1> : null }
                     <p className="archive-description">{this.props.description}</p>
                 </div>
             </Link>
@@ -73,18 +98,16 @@ class Archives extends Component {
     }
 
     componentDidMount(){
-        if(this.props.archivedShows.length  < 1){
-            this.getResources();
-            console.log("getResources() ran");
-        }
+        this.getResources();
     }
 
     render() { 
-        const archives = this.props.archivedShows.map(archive => <Archive archive={archive} dispatch={this.props.dispatch} title={archive.title} description={archive.description} key={archive.title}  /> );
+        const archives = this.props.archivedShows.map(archive => <Archive archive={archive} dispatch={this.props.dispatch} title={archive.title} description={archive.description} key={archive.title} authToken={this.props.authToken} admin={this.props.admin} /> );
         return ( 
             <div id="archives-container">
+                {this.props.admin? <Link to="/ADD-ARCHIVE"><h1 id="add-archive-link">ADD ARCHIVE</h1></Link> : null}
                 {this.props.loggedIn? null : <Redirect to="/ACCOUNT" />}
-                <h1>ARCHIVED SHOWS</h1>
+                <h1 onClick={this.getResources} className={archives.length < 1? "link" : null}>ARCHIVED SHOWS</h1>
                 <div>
                     {archives}
                 </div>

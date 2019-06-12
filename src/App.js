@@ -13,6 +13,7 @@ import Signup from './Routes/Signup/Signup';
 import Archives from './Routes/Archives/Archives';
 import WatchArchive from './Routes/Archives/WatchArchive';
 import PasswordRecover from './Routes/Signup/PasswordRecover';
+import AddArchive from './Routes/Archives/AddArchive';
 
  
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
           <Route path="/ARCHIVES" component={Archives} />
           <Route path="/WATCH-ARCHIVE" component={WatchArchive} />
           <Route path="/PASSWORD-RECOVERY" component={PasswordRecover} />
+          <Route path="/ADD-ARCHIVE" component={AddArchive} />
           <Footer />
         </Router>
       </Provider>
