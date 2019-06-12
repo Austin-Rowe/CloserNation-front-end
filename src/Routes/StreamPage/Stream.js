@@ -60,17 +60,17 @@ class Stream extends Component {
   }
 
   onPlayError(){
-    console.log('onPlayError() was fired')
-    this.setState({playBackError: true});
+    console.log("onPlayError fired");
   }
 
   render () {
     return (
       <div id="stream-chat-container">
         {this.props.loggedIn? null : <Redirect to='/ACCOUNT' />}
+        {this.props.currentlySubscribed? null : <Redirect to='/ACCOUNT' />}
         <div id="stream-container">
-          <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls />
           <h1 id="stream-label">Closer Nation Show LIVE</h1>
+          <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls />
         </div>
         <div id="chat-container">
           <Chat />
@@ -92,7 +92,8 @@ const mapStateToProps = state => ({
   authToken: state.authToken,
   userName: state.userName,
   streamAddress: state.streamAddress,
-  admin: state.admin
+  admin: state.admin,
+  currentlySubscribed: state.currentlySubscribed
 });
 
 export default connect(mapStateToProps)(Stream);

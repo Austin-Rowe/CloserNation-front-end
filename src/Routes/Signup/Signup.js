@@ -70,7 +70,10 @@ class Signup extends Component {
                         userName: signinUser,
                         admin: body.admin,
                         currentlySubscribed: body.paidSubscription
-                    })
+                    });
+                    if(!body.paidSubscription){
+                        window.alert("According to our records your subscription is not paid. If you have paid try logging out and logging back in to see if this message appears again.");
+                    }
                 }
             })
             .catch(err => console.error('Error: ' + err));

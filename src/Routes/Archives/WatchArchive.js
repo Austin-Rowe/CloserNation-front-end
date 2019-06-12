@@ -12,6 +12,7 @@ class WatchArchive extends Component {
         return ( 
             <div id="watch-archive-container">
                 {this.props.loggedIn? null: <Redirect to="/ACCOUNT" />}
+                {this.props.currentlySubscribed? null : <Redirect to='/ACCOUNT' />}
                 {isStreamLink? <Redirect to="/STREAM" /> : null}
                 <div id="watch-archive-video-container">
                     <video id="archive-video" src={URL} type="video/mp4" autoPlay controls controlsList="nodownload" >Update to a modern browser to view video.</video>
@@ -31,7 +32,8 @@ const mapStateToProps = state => ({
     authToken: state.authToken,
     userName: state.userName,
     admin: state.admin,
-    archive: state.selectedArchive
+    archive: state.selectedArchive,
+    currentlySubscribed: state.currentlySubscribed
 });
  
 export default connect(mapStateToProps)(WatchArchive);
