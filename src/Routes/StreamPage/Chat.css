@@ -23,6 +23,7 @@
 
 .message-container {
     width: 100%;
+    margin-top: 10px;
 }
 
 .username-label {

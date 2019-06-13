@@ -69,7 +69,7 @@ class Stream extends Component {
         {this.props.loggedIn? null : <Redirect to='/ACCOUNT' />}
         {this.props.currentlySubscribed? null : <Redirect to='/ACCOUNT' />}
         <div id="stream-container">
-          <h1 id="stream-label">Closer Nation Show LIVE</h1>
+          <h1 id="stream-label">Best Closer Show LIVE</h1>
           <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls />
         </div>
         <div id="chat-container">

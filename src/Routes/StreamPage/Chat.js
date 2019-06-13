@@ -79,6 +79,7 @@ class Chat extends Component {
             },
             err => {
                 console.log('error', err);
+                window.alert(`An error occured. ${err}`)
             }
         );
 
