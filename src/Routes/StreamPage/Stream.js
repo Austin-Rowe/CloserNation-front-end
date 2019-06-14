@@ -61,6 +61,7 @@ class Stream extends Component {
 
   onPlayError(){
     console.log("onPlayError fired");
+    this.setState({playBackError: true});
   }
 
   render () {
@@ -70,7 +71,14 @@ class Stream extends Component {
         {this.props.currentlySubscribed? null : <Redirect to='/ACCOUNT' />}
         <div id="stream-container">
           <h1 id="stream-label">Best Closer Show LIVE</h1>
-          <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls />
+          {this.state.playBackError? 
+            <div id="playback-error-container">
+              <h1 id="playback-error-comment">The stream is either not live or has encountered a momentary issue.</h1>
+              <button onClick={() => this.setState({playBackError: false})} id="refresh-stream-button">Refresh Stream</button>
+            </div>
+            :
+            <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls />
+          }
         </div>
         <div id="chat-container">
           <Chat />
