@@ -8,13 +8,15 @@ class SignedIn extends Component {
         super(props);
         this.state = {
             identity: '',
-            password: ''
+            password: '',
+            deleteToggled: false
         }
 
         this.logout = this.logout.bind(this);
         this.deleteAccount = this.deleteAccount.bind(this);
         this.updateField = this.updateField.bind(this);
         this.subscribe = this.subscribe.bind(this);
+        this.deleteToggle = this.deleteToggle.bind(this);
     }
 
     updateField(e){
@@ -28,7 +30,7 @@ class SignedIn extends Component {
     }
 
     deleteAccount(){
-        if(window.confirm("Are you sure you want to delete your account?")){
+        if(window.confirm("Are you sure you want to PERMANENTLY DELETE YOUR ACCOUNT?")){
             fetch('https://api.bestclosershow.com/user', {
                 method: 'delete',
                 
@@ -78,6 +80,11 @@ class SignedIn extends Component {
         .catch(err => console.error('Error: ' + err));
     }
 
+    deleteToggle(e){
+        e.preventDefault();
+        this.setState(state => ({deleteToggled: !state.deleteToggled}));
+    }
+
     render() {
         const { props } = this;
 
@@ -87,9 +94,17 @@ class SignedIn extends Component {
                 <h2>Manage your account from this page.</h2>
                 <button onClick={this.logout} className="signed-in-button logout" >Logout</button>
                 {this.props.currentlySubscribed? null : <button onClick={this.subscribe} className="signed-in-button" >Subscribe</button>}
-                <input className="delete-confirmation-input" id="identity" type="text" placeholder="Username or Email" value={this.state.identity} onChange={this.updateField} />
-                <input className="delete-confirmation-input" id="password" type="password" placeholder="Password" value={this.state.password} onChange={this.updateField} />
-                <button onClick={this.deleteAccount} className="signed-in-button delete-account" >Delete Account</button>
+                {this.state.deleteToggled?
+                    <React.Fragment>
+                        <input className="delete-confirmation-input" id="identity" type="text" placeholder="Username or Email" value={this.state.identity} onChange={this.updateField} />
+                        <input className="delete-confirmation-input" id="password" type="password" placeholder="Password" value={this.state.password} onChange={this.updateField} />
+                        <button onClick={this.deleteAccount} className="signed-in-button delete-account" >Delete Account</button>
+                        <div id="delete-toggle" style={{marginTop: '30px'}} onClick={this.deleteToggle} >Click here to hide delete field.</div>
+                    </React.Fragment>
+                    :
+                    <div id="delete-toggle" onClick={this.deleteToggle} >Want to delete your account? Click here.</div>
+                }
+                
             </div>
         );
     }

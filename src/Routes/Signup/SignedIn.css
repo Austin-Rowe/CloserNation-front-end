@@ -3,6 +3,7 @@
     margin: 10px auto;
     align-content: center;
     text-align: center;
+    padding: 10vh 0;
 }
 
 .signed-in-button {
@@ -38,4 +39,15 @@
 .delete-account {
     color: white;
     background: rgb(224, 0, 0);
+}
+
+#delete-toggle {
+    color: blue;
+    text-decoration: underline;
+    width: fit-content;
+    margin: 10px auto 0;
+}
+
+#delete-toggle:hover {
+    cursor: pointer;
 }

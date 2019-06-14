@@ -73,7 +73,7 @@ class Stream extends Component {
           <h1 id="stream-label">Best Closer Show LIVE</h1>
           {this.state.playBackError? 
             <div id="playback-error-container">
-              <h1 id="playback-error-comment">The stream is either not live or has encountered a momentary issue.</h1>
+              <h1 id="playback-error-comment">Awaiting Live Show</h1>
               <button onClick={() => this.setState({playBackError: false})} id="refresh-stream-button">Refresh Stream</button>
             </div>
             :
