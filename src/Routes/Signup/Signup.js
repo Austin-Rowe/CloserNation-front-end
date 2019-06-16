@@ -72,7 +72,7 @@ class Signup extends Component {
                         currentlySubscribed: body.paidSubscription
                     });
                     if(!body.paidSubscription){
-                        window.alert("According to our records your subscription is not paid. If you have just subscribed please wait a few minutes and log back in");
+                        window.alert("According to our records your subscription is not paid. If you have just subscribed, check your email. You might need to confirm your subscription with Paypal to access the site.");
                     }
                 }
             })

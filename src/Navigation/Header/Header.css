@@ -1,11 +1,13 @@
 #header-container {
-    margin-bottom: 15px;
+    position: absolute;
+    top: 0;
+    z-index: 2;
 }
 
 #drop-down-toggle {
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 10px;
+    top: 10px;
     z-index: 100;
 }
 
@@ -14,12 +16,13 @@
 }
 
 .hamburger-bar {
-    width: 30px; 
-    height: 5px;
+    width: 33px; 
+    height: 6px;
     margin-top: 5px;
-    border-radius: 25%;
-    background: white;
-    border: solid black 1px;
+    border-radius: 20%;
+    background: #910000;
+    border: solid #ffffff 1px;
+    box-shadow: 3px 3px 0 0;
 }
 
 .hidden {

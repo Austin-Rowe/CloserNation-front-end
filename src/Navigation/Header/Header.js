@@ -23,17 +23,22 @@ class Header extends Component {
         this.setState({
             mobile: window.innerWidth < 600,
             menuVisible: window.innerWidth >= 600
-        })
+        });
+        setTimeout(() => {
+            window.requestAnimationFrame(() => {
+                const headerContainerStyle = getComputedStyle(document.getElementById('header-container'));
+                document.body.style.paddingTop = `${parseInt(headerContainerStyle.height) + 30}px`;
+            })
+        }, 0);
+        
     }
 
     componentDidMount(){
         this.checkWidth();
         window.addEventListener('resize', () => {
-            this.setState({
-                mobile: window.innerWidth < 600,
-                menuVisible: window.innerWidth >= 600
-            })
+            this.checkWidth();
         });
+        
     }
 
     menuToggle(e){
