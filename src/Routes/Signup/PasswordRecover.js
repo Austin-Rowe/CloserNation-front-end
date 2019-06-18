@@ -21,6 +21,7 @@ class PasswordRecover extends Component {
     }
 
     requestEmailReset(e){
+        e.stopImmediatePropagation();
         e.preventDefault();
         fetch(`https://api.bestclosershow.com/password-reset-request/${this.state.recoveryEmail}`)
         .then(res => {
