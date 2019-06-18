@@ -29,7 +29,7 @@ class Header extends Component {
                 const headerContainerStyle = getComputedStyle(document.getElementById('header-container'));
                 document.body.style.paddingTop = `${parseInt(headerContainerStyle.height) + 30}px`;
             })
-        }, 0);
+        }, 1000);
         
     }
 
@@ -68,7 +68,7 @@ class Header extends Component {
                     <div className="hamburger-bar" ></div>
                     <div className="hamburger-bar" ></div>
                 </div>
-                <img id="header-image" src={this.state.mobile? "/Images/HeaderMobile.jpg" : "/Images/LightHeader.jpg"} alt="CLOSER NATION SHOW"/>
+                <img onClick={this.checkWidth} id="header-image" src={this.state.mobile? "/Images/HeaderMobile.jpg" : "/Images/LightHeader.jpg"} alt="BEST CLOSER SHOW"/>
                 <Link to="/ACCOUNT" onClick={this.state.mobile? this.hideMenu : null}>
                     <div className={this.state.menuVisible? "header-option" : "header-option hidden"} >
                         <h1>ACCOUNT</h1>
