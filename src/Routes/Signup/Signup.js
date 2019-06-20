@@ -92,8 +92,8 @@ class Signup extends Component {
                 method: 'post',
                 
                 body: JSON.stringify({
-                    email: signupEmail,
-                    userName: signupUsername,
+                    email: signupEmail.replace(/\s/g,''),
+                    userName: signupUsername.replace(/\s/g,''),
                     password: signupPassword,
                     firstName: signupFirstName,
                     lastName: signupLastName
@@ -144,8 +144,8 @@ class Signup extends Component {
                     <h1 className="form-label" >SIGN UP</h1>
                     <input onChange={this.updateField} id="signupFirstName" className="signup-input" type="text" placeholder="First Name" value={this.state.signupFirstName} />
                     <input onChange={this.updateField} id="signupLastName" className="signup-input" type="text" placeholder="Last Name" value={this.state.signupLastName} />
-                    <input onChange={this.updateField} id="signupUsername" className="signup-input" type="text" placeholder="Username" value={this.state.signupUsername} />
-                    <input onChange={this.updateField} id="signupEmail" className="signup-input" type="email" placeholder="Email" value={this.state.signupEmail} />
+                    <input onChange={this.updateField} id="signupUsername" className="signup-input" type="text" placeholder="Username" value={this.state.signupUsername.replace(/\s/g,'')} />
+                    <input onChange={this.updateField} id="signupEmail" className="signup-input" type="text" placeholder="Email" value={this.state.signupEmail.replace(/\s/g,'')} />
                     <input onChange={this.updateField} id="signupPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signupPassword} />
                     <input onChange={this.updateField} id="signupPasswordConfirm" className="signup-input" type="password" placeholder="Confirm Password" value={this.state.signupPasswordConfirm} />
                     <input className="submit-button" type="submit" value="SIGN UP" />
