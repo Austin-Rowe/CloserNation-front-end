@@ -1,5 +1,5 @@
 #footer-container {
-    background-image: url('/Images/LightMetalSheet.jpg');
+    background: url('/Images/LightMetalSheet.jpg');
     background-size: cover;    
     border-top: 1px solid rgb(44, 44, 44);
     padding-bottom: 30px;
