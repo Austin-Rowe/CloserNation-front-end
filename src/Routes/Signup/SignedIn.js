@@ -120,13 +120,13 @@ class SignedIn extends Component {
                 <h2>Manage your account from this page.</h2>
                 <button onClick={this.logout} className="signed-in-button logout" >Logout</button>
                 {this.props.currentlySubscribed? null : <button onClick={this.subscribe} className="signed-in-button" >Subscribe</button>}
-                {this.props.freeDayToken === true? 
+                {this.props.freeDayToken.length > 5? 
+                    null
+                    :
                     <React.Fragment>
-                        <input onChange={this.updateField} id="promoCode" className="signup-input" type="text" placeholder="Promo Code" value={this.state.signupPromoCode.trim()} />
+                        <input onChange={this.updateField} id="promoCode" className="promo-input" type="text" placeholder="Promo Code" value={this.state.promoCode.trim()} />
                         <button onClick={this.applyPromo} className="signed-in-button" >Apply Promo</button>
                     </React.Fragment>
-                    :
-                    null
                 }
                 {this.state.deleteToggled?
                     <React.Fragment>
@@ -149,7 +149,8 @@ const mapStateToProps = state => ({
     authToken: state.authToken,
     userName: state.userName,
     currentlySubscribed: state.currentlySubscribed,
-    freeDayToken: state.freeDayToken
+    freeDayToken: state.freeDayToken,
+    freeDayTokenUsed: state.freeDayTokenUsed
 });
  
 export default connect(mapStateToProps)(SignedIn);

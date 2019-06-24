@@ -110,7 +110,7 @@ class Archives extends Component {
                 {this.props.currentlySubscribed? 
                     null 
                     : 
-                    typeof(this.props.freeDayToken) === "string"? 
+                    this.props.freeDayTokenUsed === false? 
                         null
                         :
                         <Redirect to='/ACCOUNT' />
@@ -131,7 +131,8 @@ const mapStateToProps = state => ({
     admin: state.admin,
     archivedShows: state.archivedShows,
     currentlySubscribed: state.currentlySubscribed,
-    freeDayToken: state.freeDayToken
+    freeDayToken: state.freeDayToken,
+    freeDayTokenUsed: state.freeDayTokenUsed
 });
  
 export default connect(mapStateToProps)(Archives);

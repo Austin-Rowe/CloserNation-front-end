@@ -71,7 +71,7 @@ class Stream extends Component {
         {this.props.currentlySubscribed? 
           null 
           : 
-          typeof(this.props.freeDayToken) === "string"? 
+          this.props.freeDayToken.length > 5? 
             null
             :
             <Redirect to='/ACCOUNT' />
@@ -109,7 +109,8 @@ const mapStateToProps = state => ({
   streamAddress: state.streamAddress,
   admin: state.admin,
   currentlySubscribed: state.currentlySubscribed,
-  freeDayToken: state.freeDayToken
+  freeDayToken: state.freeDayToken,
+  freeDayTokenUsed: state.freeDayTokenUsed
 });
 
 export default connect(mapStateToProps)(Stream);

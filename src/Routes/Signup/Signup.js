@@ -72,7 +72,8 @@ class Signup extends Component {
                         userName: signinUser,
                         admin: body.admin,
                         currentlySubscribed: body.paidSubscription,
-                        freeDayToken: body.freeDayToken
+                        freeDayToken: body.freeDayToken,
+                        freeDayTokenUsed: body.freeDayTokenUsed
                     });
                     if(!body.paidSubscription && typeof(body.freeDayToken) !== "string"){
                         window.alert("According to our records your subscription is not paid. If you have just subscribed and are still getting this message check your email because paypal may require you to confirm the transaction.");
