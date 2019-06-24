@@ -9,7 +9,8 @@ class SignedIn extends Component {
         this.state = {
             identity: '',
             password: '',
-            deleteToggled: false
+            deleteToggled: false,
+            promoCode: ''
         }
 
         this.logout = this.logout.bind(this);
@@ -17,6 +18,7 @@ class SignedIn extends Component {
         this.updateField = this.updateField.bind(this);
         this.subscribe = this.subscribe.bind(this);
         this.deleteToggle = this.deleteToggle.bind(this);
+        this.applyPromo = this.applyPromo.bind(this);
     }
 
     updateField(e){
@@ -85,6 +87,30 @@ class SignedIn extends Component {
         this.setState(state => ({deleteToggled: !state.deleteToggled}));
     }
 
+    applyPromo(){
+        fetch('https://api.bestclosershow.com/user/apply-promo', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': this.props.authToken
+            },
+            body: JSON.stringify({
+                promoCode: this.state.promoCode
+            })
+        }).then(res => {
+            if(res.status !== 200){
+                if(res.status === 500){
+                    window.alert('Internal Server Error')
+                } else {
+                    window.alert("Invalid Promo Code");
+                }
+            } else if(res.status === 200){
+                window.alert("You have full access for 24 hours. Please logout and log back in to gain access.")
+            }
+        })
+        .catch(err => console.error('Error: ' + err));
+    }
+
     render() {
         const { props } = this;
 
@@ -94,6 +120,14 @@ class SignedIn extends Component {
                 <h2>Manage your account from this page.</h2>
                 <button onClick={this.logout} className="signed-in-button logout" >Logout</button>
                 {this.props.currentlySubscribed? null : <button onClick={this.subscribe} className="signed-in-button" >Subscribe</button>}
+                {this.props.freeDayToken === true? 
+                    <React.Fragment>
+                        <input onChange={this.updateField} id="promoCode" className="signup-input" type="text" placeholder="Promo Code" value={this.state.signupPromoCode.trim()} />
+                        <button onClick={this.applyPromo} className="signed-in-button" >Apply Promo</button>
+                    </React.Fragment>
+                    :
+                    null
+                }
                 {this.state.deleteToggled?
                     <React.Fragment>
                         <input className="delete-confirmation-input" id="identity" type="text" placeholder="Username or Email" value={this.state.identity} onChange={this.updateField} />
@@ -114,7 +148,8 @@ const mapStateToProps = state => ({
     loggedIn: state.loggedIn,
     authToken: state.authToken,
     userName: state.userName,
-    currentlySubscribed: state.currentlySubscribed
+    currentlySubscribed: state.currentlySubscribed,
+    freeDayToken: state.freeDayToken
 });
  
 export default connect(mapStateToProps)(SignedIn);

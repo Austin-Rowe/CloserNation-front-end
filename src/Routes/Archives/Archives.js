@@ -107,7 +107,14 @@ class Archives extends Component {
             <div id="archives-container">
                 {this.props.admin? <Link to="/ADD-ARCHIVE"><h1 id="add-archive-link">ADD ARCHIVE</h1></Link> : null}
                 {this.props.loggedIn? null : <Redirect to="/ACCOUNT" />}
-                {this.props.currentlySubscribed? null : <Redirect to='/ACCOUNT' />}
+                {this.props.currentlySubscribed? 
+                    null 
+                    : 
+                    typeof(this.props.freeDayToken) === "string"? 
+                        null
+                        :
+                        <Redirect to='/ACCOUNT' />
+                }
                 <h1 onClick={this.getResources} className={archives.length < 1? "link" : null}>ARCHIVED SHOWS</h1>
                 <div>
                     {archives}
@@ -123,7 +130,8 @@ const mapStateToProps = state => ({
     userName: state.userName,
     admin: state.admin,
     archivedShows: state.archivedShows,
-    currentlySubscribed: state.currentlySubscribed
+    currentlySubscribed: state.currentlySubscribed,
+    freeDayToken: state.freeDayToken
 });
  
 export default connect(mapStateToProps)(Archives);

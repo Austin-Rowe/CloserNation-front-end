@@ -21,35 +21,35 @@ class Stream extends Component {
   getResources(){
     fetch('https://api.bestclosershow.com/resources', {
         
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': this.props.authToken
-      }
-        
-    }).then(res => {
-      if(res.status !== 200){
-        console.log("getResources fetch failed")
-      } 
-      return res.json();
-    })
-    .then(body => {
-      let archives = [];
-      body.docs.forEach(doc => {
-        if(doc.isStreamLink){
-            this.props.dispatch({
-              type: 'SETSTREAMADDRESS',
-              streamAddress: doc.URL
-            });
-        } else {
-          archives.push(doc);
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': this.props.authToken
         }
-      });
-      this.props.dispatch({
-        type: 'SETARCHIVEDSHOWS',
-        archivedShows: archives
-      });
-    })
-    .catch(err => console.error('Error: ' + err));
+          
+      }).then(res => {
+        if(res.status !== 200){
+          console.log("getResources fetch failed")
+        }
+        return res.json();
+      })
+      .then(body => {
+        let archives = [];
+        body.docs.forEach(doc => {
+          if(doc.isStreamLink){
+              this.props.dispatch({
+                type: 'SETSTREAMADDRESS',
+                streamAddress: doc.URL
+              });
+          } else {
+            archives.push(doc);
+          }
+        });
+        this.props.dispatch({
+          type: 'SETARCHIVEDSHOWS',
+          archivedShows: archives
+        });
+      })
+      .catch(err => console.error('Error: ' + err));
   }
 
   componentDidMount(){
@@ -68,7 +68,14 @@ class Stream extends Component {
     return (
       <div id="stream-chat-container">
         {this.props.loggedIn? null : <Redirect to='/ACCOUNT' />}
-        {this.props.currentlySubscribed? null : <Redirect to='/ACCOUNT' />}
+        {this.props.currentlySubscribed? 
+          null 
+          : 
+          typeof(this.props.freeDayToken) === "string"? 
+            null
+            :
+            <Redirect to='/ACCOUNT' />
+        }
         <div id="stream-container">
           <h1 id="stream-label">Best Closer Show LIVE</h1>
           {this.state.playBackError? 
@@ -101,7 +108,8 @@ const mapStateToProps = state => ({
   userName: state.userName,
   streamAddress: state.streamAddress,
   admin: state.admin,
-  currentlySubscribed: state.currentlySubscribed
+  currentlySubscribed: state.currentlySubscribed,
+  freeDayToken: state.freeDayToken
 });
 
 export default connect(mapStateToProps)(Stream);

@@ -17,6 +17,7 @@ class Signup extends Component {
             signupPasswordConfirm: '',
             signupFirstName: '',
             signupLastName: '',
+            signupPromoCode: '',
             signinUser: '',
             signinPassword: '',
         }
@@ -38,6 +39,7 @@ class Signup extends Component {
     login(e){
         if(e){
             e.preventDefault();
+            e.stopPropagation();
         }
         const {signinUser, signinPassword} = this.state;
         if(signinPassword === '' || signinUser === ''){
@@ -69,10 +71,11 @@ class Signup extends Component {
                         authToken: body.token,
                         userName: signinUser,
                         admin: body.admin,
-                        currentlySubscribed: body.paidSubscription
+                        currentlySubscribed: body.paidSubscription,
+                        freeDayToken: body.freeDayToken
                     });
-                    if(!body.paidSubscription){
-                        window.alert("According to our records your subscription is not paid. If you have just subscribed, check your email. You might need to confirm your subscription with Paypal to access the site.");
+                    if(!body.paidSubscription && typeof(body.freeDayToken) !== "string"){
+                        window.alert("According to our records your subscription is not paid. If you have just subscribed and are still getting this message check your email because paypal may require you to confirm the transaction.");
                     }
                 }
             })
@@ -82,7 +85,7 @@ class Signup extends Component {
 
     signup(e){
         e.preventDefault();
-        const {signupEmail, signupUsername, signupPassword, signupPasswordConfirm, signupFirstName, signupLastName } = this.state;
+        const {signupEmail, signupUsername, signupPassword, signupPasswordConfirm, signupFirstName, signupLastName, signupPromoCode } = this.state;
         if(signupEmail === '' || signupUsername === '' || signupPassword === '' || signupPasswordConfirm === ''){
             window.alert("All fields must be filled");
         } else if(signupPassword !== signupPasswordConfirm){
@@ -96,7 +99,8 @@ class Signup extends Component {
                     userName: signupUsername.replace(/\s/g,''),
                     password: signupPassword,
                     firstName: signupFirstName,
-                    lastName: signupLastName
+                    lastName: signupLastName,
+                    promoCode: signupPromoCode
                 }),
               
                 headers: {
@@ -148,6 +152,7 @@ class Signup extends Component {
                     <input onChange={this.updateField} id="signupEmail" className="signup-input" type="text" placeholder="Email" value={this.state.signupEmail.replace(/\s/g,'')} />
                     <input onChange={this.updateField} id="signupPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signupPassword} />
                     <input onChange={this.updateField} id="signupPasswordConfirm" className="signup-input" type="password" placeholder="Confirm Password" value={this.state.signupPasswordConfirm} />
+                    <input onChange={this.updateField} id="signupPromoCode" className="signup-input" type="text" placeholder="Promo Code" value={this.state.signupPromoCode.trim()} />
                     <input className="submit-button" type="submit" value="SIGN UP" />
                 </form>
             </div>
