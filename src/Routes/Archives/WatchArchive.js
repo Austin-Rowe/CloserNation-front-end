@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import './WatchArchive.css';
 
-import Archives from './Archives';
+import Chat from '../StreamPage/Chat';
 
 class WatchArchive extends Component {
     render() { 
@@ -19,8 +19,8 @@ class WatchArchive extends Component {
                     <h1>{title}</h1>
                     <p id="watch-archive-description">{description}</p>
                 </div>
-                <div id="archives-wrapper">
-                    <Archives />
+                <div id="archives-chat-wrapper">
+                    <Chat />
                 </div>
             </div>
         );
