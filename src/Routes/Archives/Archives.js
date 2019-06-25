@@ -86,7 +86,7 @@ class Archives extends Component {
                         streamAddress: doc.URL
                     });
                 } else {
-                    archives.push(doc);
+                    archives.splice(0, 0, doc);
                 }
             });
             this.props.dispatch({

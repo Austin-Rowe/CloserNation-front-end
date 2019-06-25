@@ -84,7 +84,7 @@ class Stream extends Component {
               <button onClick={() => this.setState({playBackError: false})} id="refresh-stream-button">Refresh Stream</button>
             </div>
             :
-            <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls />
+            <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls playsinline />
           }
         </div>
         <div id="chat-container">
