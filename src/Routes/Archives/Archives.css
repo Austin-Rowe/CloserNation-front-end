@@ -24,15 +24,16 @@
 .delete-archive-button {
     color: blue;
     text-decoration: underline;
-    display: inline;
     font-size: 1em;
+    margin-top: 20px;
 }
 
 .archive-container {
     width: 95%;
+    max-width: 500px;
     margin: 10px auto;
     padding: 5px;
-    border: 1px solid grey;
+    border: 3px solid grey;
     border-radius: 10px;
     /*background-color: rgb(233, 233, 233);
      display: grid;
@@ -56,7 +57,6 @@
     margin-right: 10px;
     /* margin-left: 10px; */
     font-size: 1.5em;
-    display: inline;
     /* grid-row: 1 / 2; */
 }
 

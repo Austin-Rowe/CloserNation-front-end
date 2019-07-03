@@ -71,10 +71,10 @@ class Stream extends Component {
         {this.props.currentlySubscribed? 
           null 
           : 
-          this.props.freeDayToken.length > 5? 
-            null
-            :
+          this.props.freeDayTokenUsed?
             <Redirect to='/ACCOUNT' />
+            :
+            null
         }
         <div id="stream-container">
           <h1 id="stream-label">Best Closer Show LIVE</h1>

@@ -48,8 +48,8 @@ class Archive extends React.Component {
             <Link to="/WATCH-ARCHIVE" onClick={this.setReduxSelectedArchive} >
                 <div className="archive-container">
                     <h1 className="archive-title">{this.props.title}</h1>
-                    {this.props.admin? <h1 className="delete-archive-button" onClick={this.removeArchive} >DELETE</h1> : null }
                     <p className="archive-description">{this.props.description}</p>
+                    {this.props.admin? <h1 className="delete-archive-button" onClick={this.removeArchive} >DELETE</h1> : null }
                 </div>
             </Link>
         );
