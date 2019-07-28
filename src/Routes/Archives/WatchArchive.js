@@ -8,7 +8,8 @@ import Chat from '../StreamPage/Chat';
 
 class WatchArchive extends Component {
     render() { 
-        const { title, URL, description, isStreamLink } = this.props.archive;
+        const { title, description, isStreamLink, _id } = this.props.archive;
+        const URL = this.props.archive.URL + `${_id}.mp4?Authorization=${this.props.authToken}`;
         return ( 
             <div id="watch-archive-container">
                 {this.props.loggedIn? null: <Redirect to="/ACCOUNT" />}

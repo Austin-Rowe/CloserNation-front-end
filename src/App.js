@@ -15,6 +15,7 @@ import WatchArchive from './Routes/Archives/WatchArchive';
 import PasswordRecover from './Routes/Signup/PasswordRecover';
 import AddArchive from './Routes/Archives/AddArchive';
 import PasswordReset from './Routes/PasswordReset/PasswordReset';
+import AdminView from './Routes/AdminView/Admin';
 
  
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
           <Route path="/WATCH-ARCHIVE" component={WatchArchive} />
           <Route path="/PASSWORD-RECOVERY" component={PasswordRecover} />
           <Route path="/ADD-ARCHIVE" component={AddArchive} />
+          <Route path="/ADMIN" component={AdminView} />
           <Route path="/RESET-PASSWORD/:resetPasswordAuthToken/:userName" component={PasswordReset} />
           <Footer />
         </Router>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './SignedIn.css';
 
@@ -126,6 +127,13 @@ class SignedIn extends Component {
                     <React.Fragment>
                         <input onChange={this.updateField} id="promoCode" className="promo-input" type="text" placeholder="Promo Code" value={this.state.promoCode.trim()} />
                         <button onClick={this.applyPromo} className="signed-in-button" >Apply Promo</button>
+                        {this.props.admin? 
+                            <Link to='/admin'>
+                                <button  className="signed-in-button" >Admin Page</button>
+                            </Link>
+                            :
+                            null
+                        }
                     </React.Fragment>
                 }
                 {this.state.deleteToggled?
@@ -150,7 +158,8 @@ const mapStateToProps = state => ({
     userName: state.userName,
     currentlySubscribed: state.currentlySubscribed,
     freeDayToken: state.freeDayToken,
-    freeDayTokenUsed: state.freeDayTokenUsed
+    freeDayTokenUsed: state.freeDayTokenUsed,
+    admin: state.admin
 });
  
 export default connect(mapStateToProps)(SignedIn);

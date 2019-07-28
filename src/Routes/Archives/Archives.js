@@ -105,7 +105,7 @@ class Archives extends Component {
         const archives = this.props.archivedShows.map(archive => <Archive archive={archive} dispatch={this.props.dispatch} title={archive.title} description={archive.description} key={archive.title} authToken={this.props.authToken} admin={this.props.admin} /> );
         return ( 
             <div id="archives-container">
-                {this.props.admin? <Link to="/ADD-ARCHIVE"><h1 id="add-archive-link">ADD ARCHIVE</h1></Link> : null}
+                {this.props.admin? <Link to="/ADMIN"><h1 id="add-archive-link">ADD ARCHIVE</h1></Link> : null}
                 {this.props.loggedIn? null : <Redirect to="/ACCOUNT" />}
                 {this.props.currentlySubscribed? 
                     null 
