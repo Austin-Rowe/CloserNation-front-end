@@ -9,7 +9,7 @@ import Chat from '../StreamPage/Chat';
 class WatchArchive extends Component {
     render() { 
         const { title, description, isStreamLink, _id } = this.props.archive;
-        const URL = this.props.archive.URL + `${_id}.mp4?Authorization=${this.props.authToken}`;
+        const URL = this.props.archive.URL + `?Authorization=${this.props.authToken}`;
         return ( 
             <div id="watch-archive-container">
                 {this.props.loggedIn? null: <Redirect to="/ACCOUNT" />}
@@ -46,3 +46,5 @@ const mapStateToProps = state => ({
 });
  
 export default connect(mapStateToProps)(WatchArchive);
+
+
