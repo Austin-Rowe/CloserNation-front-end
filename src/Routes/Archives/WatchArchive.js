@@ -8,7 +8,7 @@ import Chat from '../StreamPage/Chat';
 
 class WatchArchive extends Component {
     render() { 
-        const { title, description, isStreamLink, _id } = this.props.archive;
+        const { title, description, isStreamLink } = this.props.archive;
         const URL = this.props.archive.URL + `?Authorization=${this.props.authToken}`;
         return ( 
             <div id="watch-archive-container">

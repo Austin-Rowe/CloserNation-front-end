@@ -21,6 +21,7 @@ class Admin extends Component {
             archiveFile: null,
             archiveTitle: '',
             archiveDescription: '',
+            awaitingArchiveConfirmation: false
         }
 
         this.updateField = this.updateField.bind(this);
@@ -43,6 +44,7 @@ class Admin extends Component {
         formData.append('title', this.state.archiveTitle);
         formData.append('description', this.state.archiveDescription);
 
+        this.setState({awaitingArchiveConfirmation: true});
         fetch('https://api.bestclosershow.com/resources/new-resource', {
             method: 'POST',
             headers: {
@@ -50,7 +52,13 @@ class Admin extends Component {
             },
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            this.setState({awaitingArchiveConfirmation: false});
+            if(response.status === 200){
+                window.alert("Resource Successfully Uploaded");
+            }
+            response.json();
+        })
         .then(res => console.log(res))
         .catch(error => console.error('Error:', error));
     }
@@ -78,10 +86,16 @@ class Admin extends Component {
                     </div>
                     <div className="admin-item">
                         <h2>Add Archive</h2>
-                        <input type="text" id="archiveTitle" onChange={this.updateField} className="admin-input" placeholder="Archive Title" value={this.state.archiveTitle} />
-                        <textarea type="text" id="archiveDescription" onChange={this.updateField} className="admin-input" placeholder="Archive Description" value={this.state.archiveDescription} />
-                        <input type="file" name="Archive" onChange={this.addArchiveFile} />
-                        <button onClick={this.uploadArchive}>UPLOAD</button>
+                        {this.state.awaitingArchiveConfirmation?
+                            <h1>Awaiting Upload Confirmation...</h1>
+                            :
+                            <React.Fragment>
+                                <input type="text" id="archiveTitle" onChange={this.updateField} className="admin-input" placeholder="Archive Title" value={this.state.archiveTitle} />
+                                <textarea type="text" id="archiveDescription" onChange={this.updateField} className="admin-input" placeholder="Archive Description" value={this.state.archiveDescription} />
+                                <input type="file" name="Archive" onChange={this.addArchiveFile} />
+                                <button onClick={this.uploadArchive}>UPLOAD</button>
+                            </React.Fragment>
+                        }
                     </div>
                 </div>
             </div>
