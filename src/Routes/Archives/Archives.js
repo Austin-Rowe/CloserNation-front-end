@@ -43,12 +43,20 @@ class Archive extends React.Component {
 
 
     render() {
-
+        let rawDate = this.props.archive.date.replace(/-/g,',');
+        let dateObj = new Date(rawDate);
+        let date = dateObj.toDateString();
         return ( 
             <Link to="/WATCH-ARCHIVE" onClick={this.setReduxSelectedArchive} >
                 <div className="archive-container">
-                    <h1 className="archive-title">{this.props.title}</h1>
-                    <p className="archive-description">{this.props.description}</p>
+                    <img className="archive-thumbnail" src={`https://api.bestclosershow.com/resources/image/${this.props.archive.fileNames.thumbnail}?Authorization=${this.props.authToken}`} alt="thumbnail"/>
+                    <h1 className="archive-title">{this.props.title} #{this.props.archive.showNumber}</h1>
+                    <p className="archive-date">{date}</p>
+                    {this.props.description.length > 1?
+                        <p className="archive-description">{this.props.description}</p>
+                        :
+                        null
+                    }
                     {this.props.admin? <h1 className="delete-archive-button" onClick={this.removeArchive} >DELETE</h1> : null }
                 </div>
             </Link>
@@ -102,7 +110,7 @@ class Archives extends Component {
     }
 
     render() { 
-        const archives = this.props.archivedShows.map(archive => <Archive archive={archive} dispatch={this.props.dispatch} title={archive.title} description={archive.description} key={archive.title} authToken={this.props.authToken} admin={this.props.admin} /> );
+        const archives = this.props.archivedShows.map(archive => <Archive archive={archive} dispatch={this.props.dispatch} title={archive.title} description={archive.description} key={archive.fileNames.video} authToken={this.props.authToken} admin={this.props.admin} /> );
         return ( 
             <div id="archives-container">
                 {this.props.admin? <Link to="/ADMIN"><h1 id="add-archive-link">ADD ARCHIVE</h1></Link> : null}
@@ -115,8 +123,8 @@ class Archives extends Component {
                         :
                         <Redirect to='/ACCOUNT' />
                 }
-                <h1 onClick={this.getResources} className={archives.length < 1? "link" : null}>ARCHIVED SHOWS</h1>
-                <div>
+                <h1 onClick={this.getResources} className={archives.length < 1? "link" : null}>THE ARCHIVES</h1>
+                <div id="archive-tiles-container">
                     {archives}
                 </div>
             </div>

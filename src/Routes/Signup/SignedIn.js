@@ -127,14 +127,14 @@ class SignedIn extends Component {
                     <React.Fragment>
                         <input onChange={this.updateField} id="promoCode" className="promo-input" type="text" placeholder="Promo Code" value={this.state.promoCode.trim()} />
                         <button onClick={this.applyPromo} className="signed-in-button" >Apply Promo</button>
-                        {this.props.admin? 
-                            <Link to='/admin'>
-                                <button  className="signed-in-button" >Admin Page</button>
-                            </Link>
-                            :
-                            null
-                        }
                     </React.Fragment>
+                }
+                {this.props.admin? 
+                    <Link to='/admin'>
+                        <button  className="signed-in-button" >Admin Page</button>
+                    </Link>
+                    :
+                    null
                 }
                 {this.state.deleteToggled?
                     <React.Fragment>

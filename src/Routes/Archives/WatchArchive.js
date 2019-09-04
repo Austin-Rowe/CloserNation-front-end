@@ -9,8 +9,10 @@ import Chat from '../StreamPage/Chat';
 class WatchArchive extends Component {
     render() { 
         const { title, description, isStreamLink } = this.props.archive;
-        const URL = this.props.archive.URL + `?Authorization=${this.props.authToken}`;
-        return ( 
+        const URL = `https://api.bestclosershow.com/resources/video/${this.props.archive.fileNames.video}?Authorization=${this.props.authToken}`;
+        let rawDate = this.props.archive.date.replace(/-/g,',');
+        let dateObj = new Date(rawDate);
+        let date = dateObj.toDateString();        return ( 
             <div id="watch-archive-container">
                 {this.props.loggedIn? null: <Redirect to="/ACCOUNT" />}
                 {this.props.currentlySubscribed? 
@@ -24,7 +26,7 @@ class WatchArchive extends Component {
                 {isStreamLink? <Redirect to="/STREAM" /> : null}
                 <div id="watch-archive-video-container">
                     <video id="archive-video" src={URL} type="video/mp4" autoPlay controls controlsList="nodownload" >Update to a modern browser to view video.</video>
-                    <h1>{title}</h1>
+                    <h1>{title} #{this.props.archive.showNumber} {date}</h1>
                     <p id="watch-archive-description">{description}</p>
                 </div>
                 <div id="archives-chat-wrapper">

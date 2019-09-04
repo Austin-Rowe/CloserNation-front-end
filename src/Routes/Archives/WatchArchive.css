@@ -11,6 +11,8 @@
 #watch-archive-description {
     max-width: 90%;
     margin: auto;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 #archives-chat-wrapper {
