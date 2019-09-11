@@ -43,8 +43,8 @@ class Archive extends React.Component {
 
 
     render() {
-        let rawDate = this.props.archive.date.replace(/-/g,',');
-        let dateObj = new Date(rawDate);
+        let dateArr = this.props.archive.date.split('-');
+        let dateObj = new Date(parseInt(dateArr[0]), parseInt(dateArr[1]) - 1, parseInt(dateArr[2]));
         let date = dateObj.toDateString();
         return ( 
             <Link to="/WATCH-ARCHIVE" onClick={this.setReduxSelectedArchive} >
