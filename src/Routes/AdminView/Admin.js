@@ -53,7 +53,7 @@ class ArchiveUpload extends Component {
     }
 
     uploadArchive(){
-        if(typeof this.state.archiveFileDuration !== 'number' || this.state.archiveFileDuration < 1 || typeof this.state.archiveFile !== 'object' || typeof this.state.thumbnailFile !== 'object' || this.state.archiveTitle === '' || this.state.archiveDate.length < 1){
+        if(typeof this.state.archiveFileDuration !== 'number' || this.state.archiveFileDuration < 1 || typeof this.state.archiveFile !== 'object' || this.state.archiveTitle === '' || this.state.archiveDate.length < 1){
             window.alert('Double check the archive you are trying to upload. Something is not filled out properly');
         } else {
             let formData = new FormData();

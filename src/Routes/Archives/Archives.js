@@ -110,7 +110,18 @@ class Archives extends Component {
     }
 
     render() { 
-        const archives = this.props.archivedShows.map(archive => <Archive archive={archive} dispatch={this.props.dispatch} title={archive.title} description={archive.description} key={archive.fileNames.video} authToken={this.props.authToken} admin={this.props.admin} /> );
+        const sortedArchives = this.props.archivedShows.sort((a,b) => {
+            let aInt = parseInt(a.showNumber);
+            let bInt = parseInt(b.showNumber);
+            if(aInt < bInt){
+                return 1;
+            } else if(aInt > bInt){
+                return -1;
+            } else {
+                return 0;
+            }
+        });
+        const archives = sortedArchives.map(archive => <Archive archive={archive} dispatch={this.props.dispatch} title={archive.title} description={archive.description} key={archive.fileNames.video} authToken={this.props.authToken} admin={this.props.admin} /> );
         return ( 
             <div id="archives-container">
                 {this.props.admin? <Link to="/ADMIN"><h1 id="add-archive-link">ADD ARCHIVE</h1></Link> : null}
