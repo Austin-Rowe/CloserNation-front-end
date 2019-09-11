@@ -82,9 +82,13 @@ class Stream extends Component {
             <div id="playback-error-container">
               <h1 id="playback-error-comment">Awaiting Live Show</h1>
               <button onClick={() => this.setState({playBackError: false})} id="refresh-stream-button">Refresh Stream</button>
+              <h1>Weekdays Starting 1am EST and Fridays 4:30pm-6pm EST</h1>
             </div>
             :
-            <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls playsinline />
+            <React.Fragment>
+              <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls playsinline />
+              <h1>Weekdays Starting 12am EST and Fridays 4pm-5pm EST</h1>
+            </React.Fragment>
           }
         </div>
         <div id="chat-container">

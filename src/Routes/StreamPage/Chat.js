@@ -114,7 +114,7 @@ class Chat extends Component {
             <div id="chat-holder" >
                 <ul id="messages-list">{messages}</ul>
                 <form id="message-form" onSubmit={this.sendMessage}>
-                    <input id="message-input" type='text' value={this.state.message} onChange={event => this.setState({message: event.target.value})} />
+                    <input id="message-input" type='text' autoComplete="off" value={this.state.message} onChange={event => this.setState({message: event.target.value})} />
                 </form>
                 <button id="message-submit" onClick={this.sendMessage} alt="submit">
                     <img id="message-submit-image" src="/Images/sendMessage.png" alt="SEND"/>
