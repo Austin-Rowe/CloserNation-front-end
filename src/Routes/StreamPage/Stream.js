@@ -77,18 +77,17 @@ class Stream extends Component {
             null
         }
         <div id="stream-container">
-          <h1 id="stream-label">Best Closer Show LIVE</h1>
+          <h1 className="stream-label">Best Closer Show</h1>
+          <h3 className="time-label" >M-F Midnight(est)-Till its over...</h3>
+          <h1 className="stream-label">Closing Time</h1>
+          <h3 className="time-label" style={{marginBottom: '15px'}}>Fridays 4-5pm (est)</h3>
           {this.state.playBackError? 
             <div id="playback-error-container">
               <h1 id="playback-error-comment">Awaiting Live Show</h1>
               <button onClick={() => this.setState({playBackError: false})} id="refresh-stream-button">Refresh Stream</button>
-              <h1>Weekdays Starting 1am EST and Fridays 4:30pm-6pm EST</h1>
             </div>
             :
-            <React.Fragment>
-              <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls playsinline />
-              <h1>Weekdays Starting 12am EST and Fridays 4pm-5pm EST</h1>
-            </React.Fragment>
+            <ReactPlayer width="100%" height="auto" url={this.props.streamAddress} onError={this.onPlayError} playing controls playsinline />
           }
         </div>
         <div id="chat-container">

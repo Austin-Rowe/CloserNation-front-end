@@ -1,6 +1,7 @@
 #stream-container {
     width: 95vw;
     margin: 20px auto;
+    text-align: center;
 }
 
 #playback-error-container {
@@ -50,10 +51,14 @@
     padding-bottom: 10px;
 }
 
-#stream-label {
+.stream-label {
     margin: 10px auto 0;
     width: fit-content;
-    text-align: center;
+}
+
+.time-label {
+    font-size: 1em;
+    margin: 0;
 }
 
 #stream-not-live-container {
