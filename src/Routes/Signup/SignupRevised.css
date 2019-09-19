@@ -1,0 +1,54 @@
+#signup-signin-container {
+    margin: 0 auto;
+    max-width: 95%;
+    text-align: center;
+    border: 1px solid rgb(167, 167, 167);
+    border-radius: 15px;
+    padding-bottom: 10px;
+    background: url('/Images/LightMetalSheet.jpg');
+    background-size: cover;
+}
+
+#selections-bar {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.sign-option {
+    margin: 0; 
+    padding: 0;
+    background: rgb(233, 233, 233);
+    color: rgb(116, 116, 116);    
+}
+
+.sign-option:hover {
+    cursor: pointer;
+    background: url('/Images/MetalSheet.jpg');
+    background-size: cover;
+    background-color: rgb(70, 70, 70);
+    text-shadow: 0 0 5px #640000, 0 0 10px #640000, 0 0 15px #640000, 0 0 20px #640000, 0 0 30px #640000, 0 0 40px #640000, 0 0 55px #640000, 0 0 75px #640000;
+    color: white;
+}
+
+.selected-option {
+    color: black;
+    background: rgba(0, 0, 0, 0);
+}
+
+.selected-option:hover {
+    cursor: default;
+    text-shadow: none;
+    background: rgba(0, 0, 0, 0);
+    color: black;
+}
+
+#selected-container {
+    padding-top: 10px;
+}
+
+@media(min-width: 700px){
+    #signup-signin-container {
+        max-width: 500px;
+    }
+}

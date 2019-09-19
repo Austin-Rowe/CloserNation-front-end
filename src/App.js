@@ -9,7 +9,7 @@ import Header from './Navigation/Header/Header';
 import Footer from './Navigation/Footer/Footer';
 
 import Stream from './Routes/StreamPage/Stream';
-import Signup from './Routes/Signup/Signup';
+import SignupRevised from './Routes/Signup/SignupRevised';
 import Archives from './Routes/Archives/Archives';
 import WatchArchive from './Routes/Archives/WatchArchive';
 import PasswordRecover from './Routes/Signup/PasswordRecover';
@@ -24,7 +24,7 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <Header />
-          <Route path="/(|ACCOUNT)/" component={Signup} />
+          <Route path="/(|ACCOUNT)/" component={SignupRevised} />
           <Route path="/STREAM" component={Stream} />
           <Route path="/ARCHIVES" component={Archives} />
           <Route path="/WATCH-ARCHIVE" component={WatchArchive} />
