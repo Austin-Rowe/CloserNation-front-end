@@ -73,6 +73,9 @@ class SignupRevised extends Component {
             })
             .then(body => {
                 console.log(body);
+                if(body.hasPaypalRecurringId && !body.paidSubscription){
+                    window.alert('IF YOU DID NOT SUBSCRIBE YET DISREGARD THIS MESSAGE. Otherwise, we are currently awaiting payment confirmation from PayPal to verify your subscription and grant you access to the show. If this message continues for more than 24 hours please cancel the subscription via your PayPal account and re-subscribe.');
+                }
                 if(body.message === "Auth successful") {
                     this.props.dispatch({
                         type: 'LOGIN',
@@ -169,8 +172,8 @@ class SignupRevised extends Component {
             page = 
             <div id="signup-signin-container">
                 <div id="selections-bar">
-                    <h1 onClick={this.toggleSelected} id="login" style={{borderTopLeftRadius: '15px'}} className={!this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>LOG IN</h1>
-                    <h1 onClick={this.toggleSelected} id="signup" style={{borderTopRightRadius: '15px'}} className={this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>SIGNUP</h1>
+                    <h1 onClick={this.toggleSelected} id="login" style={{borderTopLeftRadius: '15px', borderBottomRightRadius: '15px'}} className={!this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>LOG IN</h1>
+                    <h1 onClick={this.toggleSelected} id="signup" style={{borderTopRightRadius: '15px', borderBottomLeftRadius: '15px'}} className={this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>SIGNUP</h1>
                 </div>
                 <div id="selected-container">
                     {this.state.signupSelected? 
