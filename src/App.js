@@ -16,6 +16,7 @@ import PasswordRecover from './Routes/Signup/PasswordRecover';
 import AddArchive from './Routes/Archives/AddArchive';
 import PasswordReset from './Routes/PasswordReset/PasswordReset';
 import AdminView from './Routes/AdminView/Admin';
+import Confirm from './Routes/ConfirmSubscription/Confirm';
 
  
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
           <Route path="/ADD-ARCHIVE" component={AddArchive} />
           <Route path="/ADMIN" component={AdminView} />
           <Route path="/RESET-PASSWORD/:resetPasswordAuthToken/:userName" component={PasswordReset} />
+          <Route path="/CONFIRM-PAYPAL-SUBSCRIPTION/:paymentConfirmationToken" component={Confirm} />
           <Footer />
         </Router>
       </Provider>
