@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import './Archives.css';
 
@@ -107,6 +108,8 @@ class Archives extends Component {
 
     componentDidMount(){
         this.getResources();
+        ReactGA.initialize('UA-149455210-2');
+        ReactGA.pageview(`/viewing-archives`);
     }
 
     render() { 

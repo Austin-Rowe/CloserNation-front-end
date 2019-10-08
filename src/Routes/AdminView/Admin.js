@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import Chat from '../StreamPage/Chat';
 import './Admin.css';
@@ -24,6 +25,11 @@ class ArchiveUpload extends Component {
         this.addArchiveFile = this.addArchiveFile.bind(this);
         this.addThumbnailFile = this.addThumbnailFile.bind(this);
         this.uploadArchive = this.uploadArchive.bind(this);
+    }
+
+    componentDidMount(){
+        ReactGA.initialize('UA-149455210-2');
+        ReactGA.pageview(`/admin-page`);
     }
 
     updateField(e){

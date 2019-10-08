@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 
 import './Confirm.css';
@@ -24,6 +25,8 @@ class Confirm extends Component {
                 this.setState({confirmed: true})
             }
         })
+        ReactGA.initialize('UA-149455210-2');
+        ReactGA.pageview('/awaiting-subscripiton-confirmation');
     }
 
     render() { 

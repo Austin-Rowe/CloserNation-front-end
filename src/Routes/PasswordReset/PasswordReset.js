@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 
 import './PasswordReset.css';
 
@@ -13,6 +14,11 @@ class PasswordReset extends Component {
 
         this.sendPasswordResetRequest = this.sendPasswordResetRequest.bind(this);
         this.updateField = this.updateField.bind(this);
+    }
+
+    componentDidMount(){
+        ReactGA.initialize('UA-149455210-2');
+        ReactGA.pageview('/changing-password');
     }
 
     updateField(e){

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 
 import './Signup.css';
@@ -28,6 +29,15 @@ class SignupRevised extends Component {
         this.login = this.login.bind(this);
         this.signup = this.signup.bind(this);
         this.toggleSelected = this.toggleSelected.bind(this);
+    }
+
+    componentDidMount(){
+        ReactGA.initialize('UA-149455210-2');
+        if(this.props.loggedIn){
+            ReactGA.pageview('/logged-in');
+        } else {
+            ReactGA.pageview('/login');
+        }
     }
 
     toggleSelected(e){

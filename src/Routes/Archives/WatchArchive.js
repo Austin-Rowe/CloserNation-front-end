@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import './WatchArchive.css';
 
 import Chat from '../StreamPage/Chat';
 
 class WatchArchive extends Component {
+
+    componentDidMount(){
+        ReactGA.initialize('UA-149455210-2');
+        ReactGA.pageview(`/watching-archive/date=${this.props.archive.date}`);
+    }
+
     render() { 
         const { title, description, isStreamLink } = this.props.archive;
         const URL = `https://api.bestclosershow.com/resources/video/${this.props.archive.fileNames.video}?Authorization=${this.props.authToken}`;

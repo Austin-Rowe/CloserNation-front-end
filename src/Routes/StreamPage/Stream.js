@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import Chat from './Chat';
 import UnmuteUser from './UnmuteUser';
@@ -57,6 +58,8 @@ class Stream extends Component {
       this.getResources();
       console.log("getResources() ran");
     }
+    ReactGA.initialize('UA-149455210-2');
+    ReactGA.pageview('stream');
   }
 
   onPlayError(){

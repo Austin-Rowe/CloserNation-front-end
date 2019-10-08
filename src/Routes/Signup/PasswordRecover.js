@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 
 import './PasswordRecover.css';
 
@@ -14,6 +15,11 @@ class PasswordRecover extends Component {
         this.updateField = this.updateField.bind(this);
         this.requestEmailReset = this.requestEmailReset.bind(this);
 
+    }
+
+    componentDidMount(){
+        ReactGA.initialize('UA-149455210-2');
+        ReactGA.pageview('/send-password-reset');
     }
 
     updateField(e){

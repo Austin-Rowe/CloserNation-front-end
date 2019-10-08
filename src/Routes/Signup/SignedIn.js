@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import './SignedIn.css';
 
@@ -20,6 +21,11 @@ class SignedIn extends Component {
         this.subscribe = this.subscribe.bind(this);
         this.deleteToggle = this.deleteToggle.bind(this);
         this.applyPromo = this.applyPromo.bind(this);
+    }
+
+    componentDidMount(){
+        ReactGA.initialize('UA-149455210-2');
+        ReactGA.pageview('/logged-in');
     }
 
     updateField(e){

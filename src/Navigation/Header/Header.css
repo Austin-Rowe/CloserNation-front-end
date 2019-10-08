@@ -44,6 +44,10 @@
     color: black;
 }
 
+.header-option h1 {
+    margin: 10px 0;
+}
+
 .header-option:hover {
     background: url('/Images/MetalSheet.jpg');
     background-size: cover;
