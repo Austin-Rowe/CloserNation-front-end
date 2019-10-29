@@ -18,8 +18,10 @@
 .sign-option {
     margin: 0; 
     padding: 0;
-    background: rgb(204, 204, 204);
-    color: rgb(73, 73, 73);    
+    background: url('/Images/MetalSheet.jpg');
+    background-size: cover;
+    color: white;    
+    text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
 }
 
 .sign-option:hover {
@@ -33,6 +35,7 @@
 
 .selected-option {
     color: black;
+    text-shadow: none;
     background: rgba(0, 0, 0, 0);
 }
 

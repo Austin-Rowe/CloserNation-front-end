@@ -182,8 +182,8 @@ class SignupRevised extends Component {
             page = 
             <div id="signup-signin-container">
                 <div id="selections-bar">
-                    <h1 onClick={this.toggleSelected} id="login" style={{borderTopLeftRadius: '15px', borderBottomRightRadius: '15px'}} className={!this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>LOG IN</h1>
-                    <h1 onClick={this.toggleSelected} id="signup" style={{borderTopRightRadius: '15px', borderBottomLeftRadius: '15px'}} className={this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>SIGNUP</h1>
+                    <h1 onClick={this.toggleSelected} id="login" style={{borderTopLeftRadius: '15px', borderBottomRightRadius: '5px'}} className={!this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>LOG IN</h1>
+                    <h1 onClick={this.toggleSelected} id="signup" style={{borderTopRightRadius: '15px', borderBottomLeftRadius: '5px'}} className={this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>SIGNUP</h1>
                 </div>
                 <div id="selected-container">
                     {this.state.signupSelected? 
