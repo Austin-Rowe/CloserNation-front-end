@@ -4,6 +4,7 @@ import ReactGA from 'react-ga';
 
 
 import './Confirm.css';
+import Loading from '../../Loading/Loading';
 
 class Confirm extends Component {
     constructor(props){
@@ -20,10 +21,11 @@ class Confirm extends Component {
         this.setState({token: paymentConfirmationToken});
         fetch(`https://api.bestclosershow.com/paypal/confirm-payment?Authorization=${paymentConfirmationToken}`)
         .then(res => {
-            if(res.status === 200){
-                window.alert("Subscription Confirmed! You now have access to the show.");
-                this.setState({confirmed: true})
-            }
+            this.setState({confirmed: true});
+        })
+        .catch(err => {
+            console.error(err);
+            this.setState({confirmed: true});
         })
         ReactGA.initialize('UA-149455210-2');
         ReactGA.pageview('/awaiting-subscripiton-confirmation');
@@ -35,7 +37,7 @@ class Confirm extends Component {
                 {this.state.confirmed? 
                     <Redirect to='/ACCOUNT' />
                     :
-                    <h1 id="awaiting-confirmation-message">Awaiting Confirmation Subscription</h1>
+                    <Loading message="Awaiting Confirmation of Subscription" />
                 }
             </React.Fragment>
         );

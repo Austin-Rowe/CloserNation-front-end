@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 
-import './Signup.css';
 import './SignupRevised.css';
 import SignedIn from './SignedIn';
+import Loading from '../../Loading/Loading';
 
 class SignupRevised extends Component {
     constructor(props){
@@ -22,7 +22,9 @@ class SignupRevised extends Component {
             signupPromoCode: '',
             signinUser: '',
             signinPassword: '',
-            signupSelected: false
+            signupSelected: false,
+            loading: false,
+            loadingMessage: "Loading"
         }
 
         this.updateField = this.updateField.bind(this);
@@ -63,6 +65,7 @@ class SignupRevised extends Component {
         if(signinPassword === '' || signinUser === ''){
             window.alert("Password or Email is blank!");
         } else {
+            this.setState({loading: true, loadingMessage: "Logging In"})
             fetch('https://api.bestclosershow.com/user/login', {
                 method: 'post',
                 
@@ -76,6 +79,7 @@ class SignupRevised extends Component {
                 }
               
             }).then(res => {
+                this.setState({loading: false});
                 if(res.status !== 200){
                     window.alert("Invalid Credentials");
                 } 
@@ -101,7 +105,10 @@ class SignupRevised extends Component {
                     }
                 }
             })
-            .catch(err => console.error('Error: ' + err));
+            .catch(err => {
+                this.setState({loading: false});
+                console.error('Error: ' + err);
+            });
         }
     }
 
@@ -113,6 +120,7 @@ class SignupRevised extends Component {
         } else if(signupPassword !== signupPasswordConfirm){
             window.alert("Passwords do not match!")
         } else {
+            this.setState({loading: true, loadingMessage: "Awaiting Account Creation Confirmation"});
             fetch('https://api.bestclosershow.com/user/signup', {
                 method: 'post',
                 
@@ -130,6 +138,7 @@ class SignupRevised extends Component {
                 }
               
             }).then(res => {
+                this.setState({loading: false});
                 if(res.status !== 200){
                     window.alert("Username or email already in use");
                 } 
@@ -143,7 +152,10 @@ class SignupRevised extends Component {
                 });
                 this.login();
             })
-            .catch(err => console.error('Error: ' + err));
+            .catch(err => {
+                this.setState({loading: false});
+                console.error('Error: ' + err);
+            });
         }
     }
 
@@ -152,68 +164,48 @@ class SignupRevised extends Component {
         let page;
         if(this.props.loggedIn === true){
             page = <SignedIn userName={this.props.userName} />
-        } else if(false) {
-            page = 
-            <div id="forms-container">
-                <div>
-                    <form className="form" onSubmit={this.login}>
-                        <h1 className="form-label" >LOG IN</h1>
-                        <input onChange={this.updateField} id="signinUser" className="signup-input" type="text" placeholder="Username or Email" value={this.state.signinUser} />
-                        <input onChange={this.updateField} id="signinPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signinPassword} />
-                        <input className="submit-button" type="submit" value="LOG IN" />
-                    </form>
-                    <Link to="/PASSWORD-RECOVERY" id="password-recovery">
-                        Forgot your password? Click Here.
-                    </Link>
-                </div>
-                <form className="form" onSubmit={this.signup}>
-                    <h1 className="form-label" >SIGN UP</h1>
-                    <input onChange={this.updateField} id="signupFirstName" className="signup-input" type="text" placeholder="First Name" value={this.state.signupFirstName} />
-                    <input onChange={this.updateField} id="signupLastName" className="signup-input" type="text" placeholder="Last Name" value={this.state.signupLastName} />
-                    <input onChange={this.updateField} id="signupUsername" className="signup-input" type="text" placeholder="Username" value={this.state.signupUsername.replace(/\s/g,'')} />
-                    <input onChange={this.updateField} id="signupEmail" className="signup-input" type="text" placeholder="Email" value={this.state.signupEmail.replace(/\s/g,'')} />
-                    <input onChange={this.updateField} id="signupPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signupPassword} />
-                    <input onChange={this.updateField} id="signupPasswordConfirm" className="signup-input" type="password" placeholder="Confirm Password" value={this.state.signupPasswordConfirm} />
-                    <input onChange={this.updateField} id="signupPromoCode" className="signup-input" type="text" placeholder="Promo Code" value={this.state.signupPromoCode.trim()} />
-                    <input className="submit-button" type="submit" value="SIGN UP" />
-                </form>
-            </div>
         } else {
             page = 
-            <div id="signup-signin-container">
-                <div id="selections-bar">
-                    <h1 onClick={this.toggleSelected} id="login" style={{borderTopLeftRadius: '15px', borderBottomRightRadius: '5px'}} className={!this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>LOG IN</h1>
-                    <h1 onClick={this.toggleSelected} id="signup" style={{borderTopRightRadius: '15px', borderBottomLeftRadius: '5px'}} className={this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>SIGNUP</h1>
-                </div>
-                <div id="selected-container">
-                    {this.state.signupSelected? 
-                        <form className="form" onSubmit={this.signup}>
-                            <input onChange={this.updateField} id="signupFirstName" className="signup-input" type="text" placeholder="First Name" value={this.state.signupFirstName} />
-                            <input onChange={this.updateField} id="signupLastName" className="signup-input" type="text" placeholder="Last Name" value={this.state.signupLastName} />
-                            <input onChange={this.updateField} id="signupUsername" className="signup-input" type="text" placeholder="Username" value={this.state.signupUsername.replace(/\s/g,'')} />
-                            <input onChange={this.updateField} id="signupEmail" className="signup-input" type="text" placeholder="Email" value={this.state.signupEmail.replace(/\s/g,'')} />
-                            <input onChange={this.updateField} id="signupPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signupPassword} />
-                            <input onChange={this.updateField} id="signupPasswordConfirm" className="signup-input" type="password" placeholder="Confirm Password" value={this.state.signupPasswordConfirm} />
-                            <input onChange={this.updateField} id="signupPromoCode" className="signup-input" type="text" placeholder="Promo Code" value={this.state.signupPromoCode.trim()} />
-                            <input className="submit-button" type="submit" value="SIGN UP" />
-                        </form>
-                        :
-                        <div>
-                            <form className="form" onSubmit={this.login}>
-                                <input onChange={this.updateField} id="signinUser" className="signup-input" type="text" placeholder="Username or Email" value={this.state.signinUser} />
-                                <input onChange={this.updateField} id="signinPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signinPassword} />
-                                <input className="submit-button" type="submit" value="LOG IN" />
+            <React.Fragment>
+                <div id="signup-signin-container">
+                    <div id="selections-bar">
+                        <h1 onClick={this.toggleSelected} id="login" style={{borderTopLeftRadius: '15px', borderBottomRightRadius: '5px'}} className={!this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>LOG IN</h1>
+                        <h1 onClick={this.toggleSelected} id="signup" style={{borderTopRightRadius: '15px', borderBottomLeftRadius: '5px'}} className={this.state.signupSelected? "sign-option selected-option" : 'sign-option'}>SIGNUP</h1>
+                    </div>
+                    <div id="selected-container">
+                        {this.state.signupSelected? 
+                            <form className="form" onSubmit={this.signup}>
+                                <input onChange={this.updateField} id="signupFirstName" className="signup-input" type="text" placeholder="First Name" value={this.state.signupFirstName} />
+                                <input onChange={this.updateField} id="signupLastName" className="signup-input" type="text" placeholder="Last Name" value={this.state.signupLastName} />
+                                <input onChange={this.updateField} id="signupUsername" className="signup-input" type="text" placeholder="Username" value={this.state.signupUsername.replace(/\s/g,'')} />
+                                <input onChange={this.updateField} id="signupEmail" className="signup-input" type="text" placeholder="Email" value={this.state.signupEmail.replace(/\s/g,'')} />
+                                <input onChange={this.updateField} id="signupPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signupPassword} />
+                                <input onChange={this.updateField} id="signupPasswordConfirm" className="signup-input" type="password" placeholder="Confirm Password" value={this.state.signupPasswordConfirm} />
+                                <input onChange={this.updateField} id="signupPromoCode" className="signup-input" type="text" placeholder="Promo Code" value={this.state.signupPromoCode.trim()} />
+                                <input className="submit-button" type="submit" value="SIGN UP" />
                             </form>
-                            <Link to="/PASSWORD-RECOVERY" id="password-recovery">
-                                Forgot your password? Click Here.
-                            </Link>
-                        </div>
-                    }
+                            :
+                            <div>
+                                <form className="form" onSubmit={this.login}>
+                                    <input onChange={this.updateField} id="signinUser" className="signup-input" type="text" placeholder="Username or Email" value={this.state.signinUser} />
+                                    <input onChange={this.updateField} id="signinPassword" className="signup-input" type="password" placeholder="Password" value={this.state.signinPassword} />
+                                    <input className="submit-button" type="submit" value="LOG IN" />
+                                </form>
+                                <Link to="/PASSWORD-RECOVERY" id="password-recovery">
+                                    Forgot your password? Click Here.
+                                </Link>
+                            </div>
+                        }
+                    </div>
                 </div>
-            </div>
+                <Link to="/GIFT-SELECT" id="gift-link">
+                    CloserGifting
+                </Link>
+            </React.Fragment>
         }
         return ( 
             <React.Fragment>
+                {this.state.loading? <Loading message={this.state.loadingMessage} /> : null}
                 {page}
             </React.Fragment>
         );

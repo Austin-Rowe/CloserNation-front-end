@@ -4,7 +4,7 @@
     text-align: center;
     border: 1px solid rgb(167, 167, 167);
     border-radius: 15px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     background: url('/Images/LightMetalSheet.jpg');
     background-size: cover;
 }
@@ -35,19 +35,90 @@
 
 .selected-option {
     color: black;
-    text-shadow: none;
+    text-shadow: 1px 1px 2px white, 0 0 1em white, 0 0 0.2em white;
     background: rgba(0, 0, 0, 0);
 }
 
 .selected-option:hover {
     cursor: default;
-    text-shadow: none;
     background: rgba(0, 0, 0, 0);
+    text-shadow: 1px 1px 2px white, 0 0 1em white, 0 0 0.2em white;
     color: black;
 }
 
 #selected-container {
     padding-top: 10px;
+}
+
+.signup-input {
+    display: block;
+    width: 90%;
+    max-width: 400px;
+    font-size: 22px;
+    margin: 5px auto;
+    border-radius: 100px;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.submit-button {
+    color: white;
+    background: rgb(0, 0, 160);
+    height: 30px;
+    width: 90%;
+    max-width: 400px;
+    border: 0;
+    border-radius: 100px;
+    font-weight: bold;
+}
+
+.submit-button:hover {
+    cursor: pointer;
+}
+
+#password-recovery {
+    color: blue;
+    text-decoration: underline;
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.377);
+    border-radius: 100px;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 5px 10px;
+}
+
+#password-recovery:hover {
+    transform: scale(1.1);
+    transition: .5s ease;
+}
+
+#gift-link {
+    background: url('/Images/MetalSheet.jpg');
+    background-size: cover;
+    font-size: 25px;
+    color: white;
+    text-shadow: 1px 1px 2px #640000, 0 0 1em #640000, 0 0 0.2em #640000;
+    border-radius: 100px;
+    border: 1px solid #640000;
+    width: fit-content;
+    margin: 10px auto;
+    padding: 3px 15px;
+    display: block;
+}
+
+#gift-link:hover {  
+    transform: scale(1.1);
+    box-shadow: 0 0 5px #640000, 0 0 10px #640000, 0 0 15px #640000, 0 0 20px #640000, 0 0 30px #640000, 0 0 40px #640000, 0 0 55px #640000, 0 0 75px #640000;
+    border: 1px solid rgb(218, 218, 218);
+    transition: .5s ease;
+}
+
+@media(min-width: 500px){
+    #gift-link {
+        font-size: 35px;
+    }
 }
 
 @media(min-width: 700px){

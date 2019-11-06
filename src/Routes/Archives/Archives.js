@@ -5,6 +5,8 @@ import ReactGA from 'react-ga';
 
 import './Archives.css';
 
+import Loading from '../../Loading/Loading';
+
 class Archive extends React.Component {
     constructor(props) {
         super(props);
@@ -69,10 +71,15 @@ class Archives extends Component {
     constructor(props){
         super(props);
 
+        this.state = {
+            loading: false
+        }
+
         this.getResources = this.getResources.bind(this);
     }
 
     getResources(){
+        this.setState({loading: true});
         fetch('https://api.bestclosershow.com/resources', {
             
             headers: {
@@ -102,8 +109,12 @@ class Archives extends Component {
                 type: 'SETARCHIVEDSHOWS',
                 archivedShows: archives
             });
+            this.setState({loading: false});
         })
-        .catch(err => console.error('Error: ' + err));
+        .catch(err => {
+            this.setState({loading: false});
+            console.error('Error: ' + err);
+        });
     }
 
     componentDidMount(){
@@ -126,22 +137,25 @@ class Archives extends Component {
         });
         const archives = sortedArchives.map(archive => <Archive archive={archive} dispatch={this.props.dispatch} title={archive.title} description={archive.description} key={archive.fileNames.video} authToken={this.props.authToken} admin={this.props.admin} /> );
         return ( 
-            <div id="archives-container">
-                {this.props.admin? <Link to="/ADMIN"><h1 id="add-archive-link">ADD ARCHIVE</h1></Link> : null}
-                {this.props.loggedIn? null : <Redirect to="/ACCOUNT" />}
-                {this.props.currentlySubscribed? 
-                    null 
-                    : 
-                    this.props.freeDayTokenUsed === false? 
-                        null
-                        :
-                        <Redirect to='/ACCOUNT' />
-                }
-                <h1 onClick={this.getResources} className={archives.length < 1? "link" : null}>THE ARCHIVES</h1>
-                <div id="archive-tiles-container">
-                    {archives}
+            <React.Fragment>
+                {this.state.loading? <Loading message="Retrieving Archives" /> : null}
+                <div id="archives-container">
+                    {this.props.admin? <Link to="/ADMIN"><h1 id="add-archive-link">ADD ARCHIVE</h1></Link> : null}
+                    {this.props.loggedIn? null : <Redirect to="/ACCOUNT" />}
+                    {this.props.currentlySubscribed? 
+                        null 
+                        : 
+                        this.props.freeDayTokenUsed === false? 
+                            null
+                            :
+                            <Redirect to='/ACCOUNT' />
+                    }
+                    <h1 onClick={this.getResources} className={archives.length < 1? "link" : null}>THE ARCHIVES</h1>
+                    <div id="archive-tiles-container">
+                        {archives}
+                    </div>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }

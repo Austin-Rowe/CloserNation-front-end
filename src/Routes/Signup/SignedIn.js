@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 import './SignedIn.css';
+import Loading from '../../Loading/Loading';
 
 class SignedIn extends Component {
     constructor(props) {
@@ -12,7 +13,9 @@ class SignedIn extends Component {
             identity: '',
             password: '',
             deleteToggled: false,
-            promoCode: ''
+            promoCode: '',
+            loading: false, 
+            loadingMessage: 'Loading'
         }
 
         this.logout = this.logout.bind(this);
@@ -40,6 +43,7 @@ class SignedIn extends Component {
 
     deleteAccount(){
         if(window.confirm("Are you sure you want to PERMANENTLY DELETE YOUR ACCOUNT?")){
+            this.setState({loading: true, loadingMessage: "Awaiting Account Deletion Confirmation"});
             fetch('https://api.bestclosershow.com/user', {
                 method: 'delete',
                 
@@ -54,6 +58,7 @@ class SignedIn extends Component {
                 }
                 
             }).then(res => {
+                this.setState({loading: false});
                 if(res.status !== 200){
                     window.alert("Something went wrong! Try again.");
                 } 
@@ -63,12 +68,16 @@ class SignedIn extends Component {
                 console.log(body);
                 this.logout();
             })
-            .catch(err => console.error('Error: ' + err));
+            .catch(err => {
+                this.setState({loading: false});
+                console.error('Error: ' + err);
+            });
         }
         
     }
 
     subscribe(){
+        this.setState({loading: true, loadingMessage: "Setting Up a PayPal Subscription Transaction"});
         fetch('https://api.bestclosershow.com/paypal/subscribe', {
             method: 'post',
             
@@ -78,6 +87,7 @@ class SignedIn extends Component {
             }
             
         }).then(res => {
+            this.setState({loading: false})
             if(res.status !== 200){
                 window.alert("Error subscribing. Please try again!");
             } 
@@ -86,7 +96,10 @@ class SignedIn extends Component {
         .then(body => {
             window.location.href = body.approvalLink;
         })
-        .catch(err => console.error('Error: ' + err));
+        .catch(err => {
+            this.setState({loading: false});
+            console.error('Error: ' + err);
+        });
     }
 
     deleteToggle(e){
@@ -95,6 +108,7 @@ class SignedIn extends Component {
     }
 
     applyPromo(){
+        this.setState({loading: true, loadingMessage: "Awaiting Confirmation of Free Trial"})
         fetch('https://api.bestclosershow.com/user/apply-promo', {
             method: 'post',
             headers: {
@@ -105,6 +119,7 @@ class SignedIn extends Component {
                 promoCode: this.state.promoCode
             })
         }).then(res => {
+            this.setState({loading: false});
             if(res.status !== 200){
                 if(res.status === 500){
                     window.alert('Internal Server Error')
@@ -115,45 +130,53 @@ class SignedIn extends Component {
                 window.alert("You have full access for 24 hours. Please logout and log back in to gain access.")
             }
         })
-        .catch(err => console.error('Error: ' + err));
+        .catch(err => {
+            this.setState({loading: false});
+            console.error('Error: ' + err);
+        });
     }
 
     render() {
         const { props } = this;
 
         return ( 
-            <div id="signed-in-container">
-                <h1>Hello {props.userName}!</h1>
-                <h2>Manage your account from this page.</h2>
-                <button onClick={this.logout} className="signed-in-button logout" >Logout</button>
-                {this.props.currentlySubscribed? null : <button onClick={this.subscribe} className="signed-in-button" >Subscribe</button>}
-                {this.props.freeDayToken.length > 5? 
-                    null
-                    :
-                    <React.Fragment>
-                        <input onChange={this.updateField} id="promoCode" className="promo-input" type="text" placeholder="Promo Code" value={this.state.promoCode.trim()} />
-                        <button onClick={this.applyPromo} className="signed-in-button" >Apply Promo</button>
-                    </React.Fragment>
-                }
-                {this.props.admin? 
-                    <Link to='/admin'>
-                        <button  className="signed-in-button" >Admin Page</button>
+            <React.Fragment>
+                {this.state.loading? <Loading message={this.state.loadingMessage} /> : null}
+                <div id="signed-in-container">
+                    <h1>Hello {props.userName}!</h1>
+                    <h2>Manage your account from this page.</h2>
+                    <button onClick={this.logout} className="signed-in-button logout" >Logout</button>
+                    {this.props.currentlySubscribed? null : <button onClick={this.subscribe} className="signed-in-button" >Subscribe</button>}
+                    {this.props.freeDayToken.length > 5? 
+                        null
+                        :
+                        <React.Fragment>
+                            <input onChange={this.updateField} id="promoCode" className="promo-input" type="text" placeholder="Promo Code" value={this.state.promoCode.trim()} />
+                            <button onClick={this.applyPromo} className="signed-in-button" >Apply Promo</button>
+                        </React.Fragment>
+                    }
+                    {this.props.admin? 
+                        <Link to='/admin'>
+                            <button  className="signed-in-button" >Admin Page</button>
+                        </Link>
+                        :
+                        null
+                    }
+                    {this.state.deleteToggled?
+                        <React.Fragment>
+                            <input className="delete-confirmation-input" id="identity" type="text" placeholder="Username or Email" value={this.state.identity} onChange={this.updateField} />
+                            <input className="delete-confirmation-input" id="password" type="password" placeholder="Password" value={this.state.password} onChange={this.updateField} />
+                            <button onClick={this.deleteAccount} className="signed-in-button delete-account" >Delete Account</button>
+                            <div id="delete-toggle" style={{marginTop: '30px'}} onClick={this.deleteToggle} >Click here to hide delete field.</div>
+                        </React.Fragment>
+                        :
+                        <div id="delete-toggle" onClick={this.deleteToggle} >Want to delete your account? Click here.</div>
+                    }
+                    <Link to="/GIFT-SELECT" id="gift-link">
+                        CloserGifting
                     </Link>
-                    :
-                    null
-                }
-                {this.state.deleteToggled?
-                    <React.Fragment>
-                        <input className="delete-confirmation-input" id="identity" type="text" placeholder="Username or Email" value={this.state.identity} onChange={this.updateField} />
-                        <input className="delete-confirmation-input" id="password" type="password" placeholder="Password" value={this.state.password} onChange={this.updateField} />
-                        <button onClick={this.deleteAccount} className="signed-in-button delete-account" >Delete Account</button>
-                        <div id="delete-toggle" style={{marginTop: '30px'}} onClick={this.deleteToggle} >Click here to hide delete field.</div>
-                    </React.Fragment>
-                    :
-                    <div id="delete-toggle" onClick={this.deleteToggle} >Want to delete your account? Click here.</div>
-                }
-                
-            </div>
+                </div>
+            </React.Fragment>
         );
     }
 }

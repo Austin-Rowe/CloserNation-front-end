@@ -1,0 +1,102 @@
+#gift-option-link {
+    display: block;
+}
+
+.gift-option {
+    width: 100%;
+    max-width: 85vw;
+    margin: 20px auto;
+    padding: 15px 0;
+    border: 1px solid grey;
+    border-radius: 15px;
+    text-align: center;
+    background-color: rgb(212, 212, 212);
+}
+
+.gift-option:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: ease .5s;
+}
+
+.gift-option h2 {
+    font-size: 35px;
+    margin: 0 auto;
+}
+
+.gift-option h1 {
+    font-size: 100px;
+    margin: 10px auto;
+}
+
+h1 sup {
+    font-size: 40px;
+}
+
+.year {
+    color: white;
+    background: url('/Images/MetalSheet.jpg');
+    background-size: cover;
+    text-shadow: 1px 1px 2px #640000, 0 0 1em #640000, 0 0 0.2em #640000;
+    transition: box-shadow .5s ease;
+}
+
+.year:hover {
+    box-shadow: 0 0 5px #640000, 0 0 10px #640000, 0 0 15px #640000, 0 0 20px #640000, 0 0 30px #640000, 0 0 40px #640000, 0 0 55px #640000, 0 0 75px #640000;
+}
+
+.half-year {
+    color: black;
+    background: url('/Images/LightMetalSheet.jpg');
+    background-size: cover;
+    text-shadow: 1px 1px 2px white, 0 0 1em white, 0 0 0.2em white;
+}
+
+.half-year:hover {
+    box-shadow: 0 0 5px white, 0 0 10px white, 0 0 15px white, 0 0 20px white, 0 0 30px white, 0 0 40px white, 0 0 55px white, 0 0 75px white;
+    border: 1px solid black;
+}
+
+.quarter-year {
+    background: rgb(73, 73, 73);
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
+    border: 2px solid black;
+}
+
+@media(min-width: 600px){
+    #gift-options-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 30px;
+    }
+
+    .gift-option {
+        max-width: 250px;
+    }
+}
+
+@media(min-width: 750px){
+    #gift-options-container {
+        padding: 0 70px;
+    }
+}
+
+@media(min-width: 900px){
+    #gift-options-container {
+        padding: 0 140px;
+    }
+}
+
+@media(min-width: 1050px){
+    #gift-options-container {
+        padding: 0 200px;
+    }
+}
+
+@media(min-width: 1100px){
+    #gift-options-container {
+        padding: 0 40px;
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

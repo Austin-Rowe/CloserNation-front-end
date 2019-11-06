@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 import Chat from '../StreamPage/Chat';
+import Loading from '../../Loading/Loading';
 import './Admin.css';
 
 class ArchiveUpload extends Component {
@@ -18,7 +19,7 @@ class ArchiveUpload extends Component {
             awaitingArchiveConfirmation: false,
             archiveFileDuration: '',
             archiveDate: '',
-            archiveNumber: ''
+            archiveNumber: '',
         };
 
         this.updateField = this.updateField.bind(this);
@@ -91,7 +92,10 @@ class ArchiveUpload extends Component {
                 response.json();
             })
             .then(res => console.log(res))
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                this.setState({awaitingArchiveConfirmation: false});
+                console.error('Error:', error);
+            });
         }
     }
     
@@ -100,7 +104,7 @@ class ArchiveUpload extends Component {
             <div className="admin-item">
                 <h2>Add Archive</h2>
                 {this.state.awaitingArchiveConfirmation?
-                    <h1>Awaiting Upload Confirmation...</h1>
+                    <Loading message="Awaiting Archive Upload Confirmation" />
                     :
                     <React.Fragment>
                         <input type="text" id="archiveTitle" onChange={this.updateField} className="admin-input" placeholder="Archive Title" value={this.state.archiveTitle} />

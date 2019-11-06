@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 
 import './PasswordReset.css';
+import Loading from '../../Loading/Loading';
 
 class PasswordReset extends Component {
     constructor(props){
@@ -9,7 +10,8 @@ class PasswordReset extends Component {
         this.state = {
             resetSuccess: false,
             newPassword: '',
-            confirmNewPassword: ''
+            confirmNewPassword: '',
+            loading: false
         }
 
         this.sendPasswordResetRequest = this.sendPasswordResetRequest.bind(this);
@@ -29,6 +31,7 @@ class PasswordReset extends Component {
         if(this.state.newPassword !== this.state.confirmNewPassword){
             window.alert("Passwords do not match!");
         } else {
+            this.setState({loading: true});
             fetch('https://api.bestclosershow.com/password-reset-request', {
                 method: 'post',
                 
@@ -41,6 +44,7 @@ class PasswordReset extends Component {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
+                this.setState({loading: false});
                 if(res.status === 401){
                     window.alert('Reset email has expired. Please request another reset email and try again!');
                 } else if(res.status === 500){
@@ -49,26 +53,32 @@ class PasswordReset extends Component {
                     this.setState({resetSuccess: true});
                 }
             })
-            .catch(err => window.alert(`Error with reset request: ${err}`));
+            .catch(err => {
+                this.setState({loading: false});
+                window.alert(`Error with reset request: ${err}`);
+            });
         }
     }
 
     render() { 
-        return ( 
-            <div id="password-reset-container">
-                <h1 id="password-reset-label">Reset Password for {this.props.match.params.userName}</h1>
-                <input className="password-reset-input" value={this.state.newPassword} id="newPassword" onChange={this.updateField} type="password" placeholder="NEW PASSWORD"/>
-                <input className="password-reset-input" value={this.state.confirmNewPassword} id="confirmNewPassword" onChange={this.updateField} type="password" placeholder="CONFIRM NEW PASSWORD"/>
-                <button className="password-reset-input" id="password-reset-submit-button" onClick={this.sendPasswordResetRequest}>Change Password</button>
-                {this.state.resetSuccess? 
-                    <div id="password-reset-success-message">
-                        <h3>Password Reset Successful!</h3>
-                        <p>You should now have access to your account!</p>
-                    </div>
-                    :
-                    null
-                }
-            </div>
+        return (
+            <React.Fragment>
+                {this.state.loading? <Loading message="Awaiting Confirmation of Password Reset" /> : null}
+                <div id="password-reset-container">
+                    <h1 id="password-reset-label">Reset Password for {this.props.match.params.userName}</h1>
+                    <input className="password-reset-input" value={this.state.newPassword} id="newPassword" onChange={this.updateField} type="password" placeholder="NEW PASSWORD"/>
+                    <input className="password-reset-input" value={this.state.confirmNewPassword} id="confirmNewPassword" onChange={this.updateField} type="password" placeholder="CONFIRM NEW PASSWORD"/>
+                    <button className="password-reset-input" id="password-reset-submit-button" onClick={this.sendPasswordResetRequest}>Change Password</button>
+                    {this.state.resetSuccess? 
+                        <div id="password-reset-success-message">
+                            <h3>Password Reset Successful!</h3>
+                            <p>You should now have access to your account!</p>
+                        </div>
+                        :
+                        null
+                    }
+                </div>
+            </React.Fragment> 
         );
     }
 }

@@ -1,0 +1,18 @@
+#payout-container {
+    width: 500px;
+    max-width: 85vw;
+    margin: 20px auto;
+    text-align: center;
+}
+
+#payout-container h1, p {
+    margin: 0;
+}
+
+#payout-container a {
+    overflow-wrap: break-word;
+    color: blue;
+    text-decoration: underline;
+    margin: 15px auto;
+    display: block;
+}

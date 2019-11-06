@@ -11,7 +11,7 @@ const initialState = {
     archivedShows: [],
     admin: false,
     selectedArchive: {},
-    refetchMutedUserList: true
+    refetchMutedUserList: true,
 };
   
 const reducer = (state = initialState, action) => {

@@ -1,0 +1,17 @@
+#loading-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.85);  
+    color: white;
+    text-align: center;
+}   
+
+.loader {
+    width: 100px;
+    margin: auto;
+    margin-top: calc(50vh - 100px);
+}
