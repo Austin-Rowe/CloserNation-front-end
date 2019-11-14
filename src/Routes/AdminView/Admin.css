@@ -48,6 +48,36 @@
     border-radius: 10px;
 }
 
+#generate-gift-link-contianer {
+    margin-top: 50px;
+}
+#generate-gift-link-contianer div {
+    display: inline-block;
+    background: blue;
+    color: white;
+    padding: 3px 8px;
+    margin-left: 10px;
+    border-radius: 100px;
+}
+
+#generate-gift-link-contianer input {
+    width: 30px;
+    font-size: 20px;
+}
+
+#generate-gift-link-contianer div:hover {
+    cursor: pointer;
+}
+
+#generate-gift-link-contianer a {
+    max-width: 500px;
+    overflow-wrap: break-word;
+    color: blue;
+    text-decoration: underline;
+    display: block;
+    margin: 10px auto;
+}
+
 @media(min-width: 700px){
     #admin-items-container {
         display: grid;

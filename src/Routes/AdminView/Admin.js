@@ -124,6 +124,60 @@ class ArchiveUpload extends Component {
     }
 }
  
+class GenerateGiftLink extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            loading: false,
+            accessLink: ''
+        }
+    }
+
+
+    getGiftLink = () => {
+        this.setState({loading: true});
+        let months = document.getElementById('months').value;
+        fetch(`https://api.bestclosershow.com/gift/generate-link/${months}`, {
+            method: 'post',
+                headers: {
+                    'Authorization': this.props.authToken
+                }
+            }
+        )
+        .then(res => {
+            if(res.status !== 200){
+                window.alert('Something went wrong generating the link. Please try again!')
+            }
+            this.setState({loading: false});
+            return res.json();
+        })
+        .then(body => {
+            this.setState({accessLink: body.accessLink});
+        })
+        .catch(err => {
+            console.error(err);
+            this.setState({loading: false});
+        });
+    }
+
+    render(){
+        return (
+            <React.Fragment>
+                {this.state.loading? 
+                    <Loading message="Awaiting Gift Link Generation" />     
+                    :
+                    <div id="generate-gift-link-contianer">
+                        <h1>Generate Gift Link</h1>
+                       Months: <input type="number" defaultValue="1" id="months" />
+                        <div onClick={this.getGiftLink}>GET LINK</div>
+                        <a href={this.state.accessLink}>{this.state.accessLink}</a>
+                    </div>
+                }
+            </React.Fragment>
+        )
+    }
+}
  
 
 class Admin extends Component {
@@ -163,6 +217,7 @@ class Admin extends Component {
                         </div>
                     </div>
                     <ArchiveUpload authToken={this.props.authToken} />
+                    <GenerateGiftLink authToken={this.props.authToken} />
                 </div>
             </div>
         );
