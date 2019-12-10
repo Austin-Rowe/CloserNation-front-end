@@ -7,8 +7,40 @@ import './Chat.css';
 class Message extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            messageObj: props.messageObj
+        };
 
         this.toggleMute = this.toggleMute.bind(this);
+    }
+
+    componentWillMount(){
+        this.checkIfUrl(this.props.messageObj.message);
+    }
+
+    checkIfUrl = message => {
+        let regex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
+        let messageArray = message.split(' ');
+
+        const messageArrayUrled = messageArray.map((word, index) => {
+            let processedWord;
+            
+            if(regex.test(word)){
+                processedWord = <a href={word.includes('http')? word : `//${word}`} key={word} target="_blank" rel="noopener noreferrer">{word}</a>;
+            } else if(regex.test(messageArray[index - 1])){
+                processedWord = ` ${word} `
+            } else if(index === messageArray.length - 1){
+                processedWord = `${word}`
+            } else {
+                processedWord = `${word} `
+            }
+
+            return processedWord;
+        });
+
+        this.setState(state => ({
+            messageObj: {...state.messageObj, message: messageArrayUrled}
+        }));
     }
 
     toggleMute(){
@@ -41,7 +73,7 @@ class Message extends Component {
     }
 
     render() {
-        const { messageObj} = this.props;
+        const { messageObj} = this.state;
         return ( 
             <li className="message-container">
                 <div className="username-label">{messageObj.userName}</div>
@@ -73,7 +105,6 @@ class Chat extends Component {
                 this.setState(state => ({
                     messages: [...state.messages, message]
                 }));
-                console.log('recieved message: ' + message);
                 const messages = document.getElementById("messages-list");
                 messages.scrollTop = messages.scrollHeight;
             },
