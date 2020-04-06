@@ -21,6 +21,8 @@ import GiftSelection from './Routes/GiftRoutes/GiftSelect/GiftSelection';
 import LinkPayout from './Routes/GiftRoutes/LinkPage/LinkPayout';
 import GiftSignup from './Routes/GiftRoutes/GiftSignup/GiftSignup';
 
+import AdminRevised from './Routes/AdminView/AdminRevised';
+
  
 class App extends Component {
   render () {
@@ -34,7 +36,7 @@ class App extends Component {
           <Route path="/WATCH-ARCHIVE" component={WatchArchive} />
           <Route path="/PASSWORD-RECOVERY" component={PasswordRecover} />
           <Route path="/ADD-ARCHIVE" component={AddArchive} />
-          <Route path="/ADMIN" component={AdminView} />
+          <Route path="/ADMIN" component={AdminRevised} />
           <Route path="/RESET-PASSWORD/:resetPasswordAuthToken/:userName" component={PasswordReset} />
           <Route path="/CONFIRM-PAYPAL-SUBSCRIPTION/:paymentConfirmationToken" component={Confirm} />
           <Route path="/GIFT-SELECT" component={GiftSelection} />

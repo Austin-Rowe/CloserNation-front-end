@@ -81,9 +81,6 @@ class Stream extends Component {
         }
         <div id="stream-container">
           <h1 className="stream-label">Best Closer Show</h1>
-          <h3 className="time-label" >M-F Midnight(est)-Till its over...</h3>
-          <h1 className="stream-label">Closing Time</h1>
-          <h3 className="time-label" style={{marginBottom: '15px'}}>Fridays 4-5pm (est)</h3>
           {this.state.playBackError? 
             <div id="playback-error-container">
               <h1 id="playback-error-comment">Awaiting Live Show</h1>

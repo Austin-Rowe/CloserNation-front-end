@@ -1,0 +1,16 @@
+#admin-container {
+    margin: 0 auto;
+    min-width: 50vw;
+    min-height: 50vh;
+}
+
+#stream-chat-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 50px;
+}
+
+#admin-chat-container {
+    border: 1px solid grey;
+    border-radius: 10px;
+}
