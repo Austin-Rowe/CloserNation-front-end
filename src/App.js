@@ -36,7 +36,7 @@ class App extends Component {
           <Route path="/WATCH-ARCHIVE" component={WatchArchive} />
           <Route path="/PASSWORD-RECOVERY" component={PasswordRecover} />
           <Route path="/ADD-ARCHIVE" component={AddArchive} />
-          <Route path="/ADMIN" component={AdminRevised} />
+          <Route path="/ADMIN" component={AdminView} />
           <Route path="/RESET-PASSWORD/:resetPasswordAuthToken/:userName" component={PasswordReset} />
           <Route path="/CONFIRM-PAYPAL-SUBSCRIPTION/:paymentConfirmationToken" component={Confirm} />
           <Route path="/GIFT-SELECT" component={GiftSelection} />
