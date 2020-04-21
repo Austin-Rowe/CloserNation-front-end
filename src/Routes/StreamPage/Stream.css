@@ -81,11 +81,15 @@
     margin: 0;
 }
 
-@media(min-width: 750px){
+#stream-chat-container {
+    display: block !important;
+}
+
+@media (min-width: 750px){
     #stream-chat-container {
         width: 95vw;
         margin: 0 auto;
-        display: grid;
+        display: grid !important;
         grid-template-columns: 3fr 1fr;
         grid-template-rows: auto auto;
     }
