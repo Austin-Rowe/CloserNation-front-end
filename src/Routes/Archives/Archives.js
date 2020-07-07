@@ -25,7 +25,7 @@ class Archive extends React.Component {
     removeArchive(e){
         e.preventDefault();
         const { archive, authToken } = this.props;
-        fetch(`https://api.bestclosershow.com/resources/${archive._id}`, {
+        fetch(`https://api.bestclosershow.com/resources/${archive._id}/${archive.fileNames.video}`, {
             method: 'delete',
             headers: {
                 'Content-Type': 'application/json',
